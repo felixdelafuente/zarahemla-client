@@ -1,8 +1,11 @@
 export interface User {
-  id: string;
+  _id: string;
+  username: string;
+  password: string;
   name: string;
   accountType: string;
   access: Access[];
+  createdAt: Date;
 }
 
 export interface Access {

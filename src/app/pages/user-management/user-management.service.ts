@@ -1,8 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { User } from '../../shared/models/user.model';
+import { NewUser } from '../../shared/models/new-user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +38,7 @@ export class UserManagementService {
    * @param searchInput - Optional search input
    * @returns Observable with paginated data
    */
-  getPaginated(
-    pageNumber?: number,
-    searchInput?: string
-  ): Observable<any> {
+  getPaginated(pageNumber?: number, searchInput?: string): Observable<HttpResponse<any>> {
     let params = new HttpParams();
     if (pageNumber !== undefined) {
       params = params.set('pageNumber', pageNumber.toString());
@@ -49,7 +47,10 @@ export class UserManagementService {
       params = params.set('searchInput', searchInput);
     }
 
-    return this.http.get<any>(`${this.baseUrl}/paginate`, { params });
+    return this.http.get<any>(`${this.baseUrl}/paginate`, {
+      params,
+      observe: 'response', // Include response headers
+    });
   }
 
   /**
@@ -57,8 +58,8 @@ export class UserManagementService {
    * @param user - User object
    * @returns Observable of the created User
    */
-  register(user: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}`, user);
+  register(user: NewUser): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/register`, user);
   }
 
   /**
@@ -67,7 +68,7 @@ export class UserManagementService {
    * @param user - Updated User object
    * @returns Observable of updated User
    */
-  update(id: string, user: Partial<User>): Observable<User> {
+  update(id: string, user: Partial<NewUser>): Observable<User> {
     return this.http.put<User>(`${this.baseUrl}/${id}`, user);
   }
 
