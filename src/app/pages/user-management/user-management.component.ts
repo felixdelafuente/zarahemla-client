@@ -196,6 +196,7 @@ export class UserManagementComponent {
     this.userService.delete(this.selectedUsers).subscribe({
       next: (data: any) => {
         this.toastService.show('User/s deleted successfully!', 'success');
+        this.fetchPaginatedData(this.currentPage);
       },
       error: (msg: any) => {
         console.log("error:", msg);

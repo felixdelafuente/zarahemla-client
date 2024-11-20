@@ -1,0 +1,158 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ToastService } from '../../../core/services/toast.service';
+import { TradingTabService } from './trading-tab.service';
+import { Pagination } from '../../../shared/models/paginated-result.model';
+import * as bootstrap from 'bootstrap';
+import { TradingItem } from '../../../shared/models/trading-item.model';
+import { BrowserModule } from '@angular/platform-browser';
+import { AdjustQuantityModalComponent } from "./modals/adjust-quantity-modal/adjust-quantity-modal.component";
+
+@Component({
+  selector: 'app-trading-tab',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ToastComponent,
+    FormsModule,
+    AdjustQuantityModalComponent
+],
+  templateUrl: './trading-tab.component.html',
+  styleUrl: './trading-tab.component.scss'
+})
+export class TradingTabComponent {
+  paginatedData: TradingItem[] = [];  // Store paginated data
+  currentPage: number = 1;
+  pageSize: number = 10;  // Adjust the page size
+  totalPages: number = 1;
+  pageNumbers: number[] = [];
+  searchQuery: string = '';
+
+  selectedItems: { ids: string[] } = { ids: [] }; // Store selected item IDs
+
+  selectedItem: any;
+
+  constructor(
+    private service: TradingTabService,
+    private toastService: ToastService
+  ) { }
+  
+  ngOnInit(): void {
+    this.fetchPaginatedData(this.currentPage);
+  }
+
+  fetchPaginatedData(page: number, query?: string) {
+    this.service.getPaginated(page, query).subscribe({
+      next: (response) => {
+        const paginationHeader = response.headers.get('Pagination');
+        if (paginationHeader) {
+          const pagination: Pagination = JSON.parse(paginationHeader);
+          this.currentPage = pagination.currentPage;
+          this.totalPages = Math.ceil(pagination.totalItems / this.pageSize);
+          this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+        }
+
+        // Extract body data
+        this.paginatedData = response.body;
+        console.log('Response body:', this.paginatedData);
+        console.log('Pagination data:', paginationHeader);
+        console.log('All headers:', response.headers);
+
+      },
+      error: (err) => {
+        console.error('Error fetching paginated data', err);
+      }
+    });
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.fetchPaginatedData(page);
+    }
+  }
+
+  // Check if the item is selected
+  isSelected(itemId: string): boolean {
+    return this.selectedItems.ids.includes(itemId);
+  }
+
+  // Handle checkbox change and update selected items
+  onRowCheckboxChange(event: any, itemId: string): void {
+    console.log('event', event); 
+    console.log('itemId', itemId); 
+    if (event.target.checked) {
+      // Add item id to selected items
+      this.selectedItems.ids.push(itemId);
+    } else {
+      // Remove item id from selected items
+      const index = this.selectedItems.ids.indexOf(itemId);
+      if (index > -1) {
+        this.selectedItems.ids.splice(index, 1);
+      }
+    }
+    console.log('Selected Items:', this.selectedItems); // You can check the updated selected items here
+  }
+
+  onAddQuantity(item: TradingItem) {
+    this.selectedItem = item;
+
+    const modalElement = document.getElementById('adjustQuantityModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID not found.");
+    }
+  }
+
+  onSaveQuantity(item: any) {
+    // Handle saving the updated user data (e.g., make an API call)
+    console.log('Updated user data:', item);
+
+    // Close the modal after saving data
+    const modalElement = document.getElementById('adjustQuantityModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide(); // Safely hide the modal if an instance exists
+        this.fetchPaginatedData(this.currentPage);
+      } else {
+        console.error("No Bootstrap modal instance found for 'adjustQuantityModal'.");
+      }
+    } else {
+      console.error("Modal element with ID 'adjustQuantityModal' not found.");
+    }
+  }
+  
+  onEdit(item: TradingItem) {
+    this.selectedItem = item;
+
+    const modalElement = document.getElementById('manageTradingItemModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID 'manageTradingItemModal' not found.");
+    }
+  }
+
+  onDelete() {
+    this.service.delete(this.selectedItems).subscribe({
+      next: (data: any) => {
+        this.toastService.show('TradingItem/s deleted successfully!', 'success');
+        this.fetchPaginatedData(this.currentPage);
+      },
+      error: (msg: any) => {
+        console.log("error:", msg);
+        this.toastService.show(
+          'Failed to delete item/s. Please try again.',
+          'danger'
+        );
+      },
+    });
+  }
+}
