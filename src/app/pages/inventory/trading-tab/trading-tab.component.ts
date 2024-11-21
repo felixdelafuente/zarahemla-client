@@ -9,6 +9,7 @@ import * as bootstrap from 'bootstrap';
 import { TradingItem } from '../../../shared/models/trading-item.model';
 import { BrowserModule } from '@angular/platform-browser';
 import { AdjustQuantityModalComponent } from "./modals/adjust-quantity-modal/adjust-quantity-modal.component";
+import { ManageTradingModalComponent } from "./modals/manage-trading-modal/manage-trading-modal.component";
 
 @Component({
   selector: 'app-trading-tab',
@@ -18,7 +19,8 @@ import { AdjustQuantityModalComponent } from "./modals/adjust-quantity-modal/adj
     ReactiveFormsModule,
     ToastComponent,
     FormsModule,
-    AdjustQuantityModalComponent
+    AdjustQuantityModalComponent,
+    ManageTradingModalComponent
 ],
   templateUrl: './trading-tab.component.html',
   styleUrl: './trading-tab.component.scss'
@@ -97,6 +99,16 @@ export class TradingTabComponent {
     console.log('Selected Items:', this.selectedItems); // You can check the updated selected items here
   }
 
+  onAdd() {
+    const modalElement = document.getElementById('manageTradingModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID 'manageTradingModal' not found.");
+    }
+  }
+
   onAddQuantity(item: TradingItem) {
     this.selectedItem = item;
 
@@ -110,8 +122,8 @@ export class TradingTabComponent {
   }
 
   onSaveQuantity(item: any) {
-    // Handle saving the updated user data (e.g., make an API call)
-    console.log('Updated user data:', item);
+    // Handle saving the updated data (e.g., make an API call)
+    console.log('Updateddata:', item);
 
     // Close the modal after saving data
     const modalElement = document.getElementById('adjustQuantityModal');
@@ -127,16 +139,35 @@ export class TradingTabComponent {
       console.error("Modal element with ID 'adjustQuantityModal' not found.");
     }
   }
+
+  onSave(item: any) {
+    // Handle saving the updated data (e.g., make an API call)
+    console.log('Updateddata:', item);
+
+    // Close the modal after saving data
+    const modalElement = document.getElementById('manageTradingModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide(); // Safely hide the modal if an instance exists
+        this.fetchPaginatedData(this.currentPage);
+      } else {
+        console.error("No Bootstrap modal instance found for 'manageTradingModal'.");
+      }
+    } else {
+      console.error("Modal element with ID 'manageTradingModal' not found.");
+    }
+  }
   
   onEdit(item: TradingItem) {
     this.selectedItem = item;
 
-    const modalElement = document.getElementById('manageTradingItemModal');
+    const modalElement = document.getElementById('manageTradingModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show(); // Manually show the modal
     } else {
-      console.error("Modal element with ID 'manageTradingItemModal' not found.");
+      console.error("Modal element with ID 'manageTradingModal' not found.");
     }
   }
 

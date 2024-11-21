@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between mb-3">
       <div class="d-flex gap-3">
         <div class="d-flex justify-content-start">
-          <button type="submit" class="btn btn-danger">ADD ITEM</button>
+          <button type="submit" class="btn btn-danger" (click)="onAdd()">ADD ITEM</button>
         </div>
         
       </div>
@@ -104,3 +104,4 @@
 </div>
 <app-toast></app-toast>
 <app-adjust-quantity-modal [item]="selectedItem" (onSave)="onSaveQuantity($event)"></app-adjust-quantity-modal>
+<app-manage-trading-modal [item]="selectedItem" (onSave)="onSave($event)"></app-manage-trading-modal>
