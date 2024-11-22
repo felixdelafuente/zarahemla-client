@@ -1,0 +1,39 @@
+<div class="modal fade" id="manageClientModal" tabindex="-1" aria-labelledby="manageClientModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="manageClientModalLabel">{{ item ? 'Edit Service' : 'Add Service' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        <form [formGroup]="manageClientForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6 mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" required>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="name" class="form-label">Email</label>
+              <input type="text" class="form-control" id="email" formControlName="email" required>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="contact" class="form-label">Contact</label>
+              <div class="input-group input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">+63</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="contact" formControlName="contact">
+              </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="dateIssued" class="form-label">Date Issued</label>
+              <input type="date" class="form-control" id="dateIssued" formControlName="dateIssued" required>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-danger">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
