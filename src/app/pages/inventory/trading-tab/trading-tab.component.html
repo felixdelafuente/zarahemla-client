@@ -5,6 +5,21 @@
         <div class="d-flex justify-content-start">
           <button type="submit" class="btn btn-danger" (click)="onAdd()">ADD ITEM</button>
         </div>
+        @if (isLow) {
+          <div class="d-flex justify-content-start">
+            <button type="button" class="btn btn-danger position-relative" (click)="seeLowStocks()">
+              LOW STOCKS
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black">
+                {{ lowStocks.length }}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </button>
+          </div>
+        } @else {
+          <div class="d-flex justify-content-start">
+            <button type="button" class="btn btn-danger" disabled>LOW STOCKS</button>
+          </div>
+        }
         
       </div>
       <div class="input-group w-25">
@@ -103,5 +118,7 @@
   </div>
 </div>
 <app-toast></app-toast>
-<app-adjust-quantity-modal [item]="selectedItem" (onSave)="onSaveQuantity($event)"></app-adjust-quantity-modal>
+<app-low-stock-modal class="z-3"></app-low-stock-modal>
+<app-adjust-quantity-modal class="z-2" [item]="selectedItem" (onSave)="onSaveQuantity($event)"></app-adjust-quantity-modal>
 <app-manage-trading-modal [item]="selectedItem" (onSave)="onSave($event)"></app-manage-trading-modal>
+<app-delete-items-modal [selectedItems]="selectedItems" (onSave)="onSaveDelete($event)"></app-delete-items-modal>

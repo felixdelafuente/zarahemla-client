@@ -63,6 +63,14 @@ export class TradingTabService {
   }
 
   /**
+   * Get tradingItems with quantity of below 10
+   * @returns Observable of TradingItem array
+   */
+  getLowStocks(): Observable<TradingItem[]> {
+    return this.http.get<TradingItem[]>(`${this.baseUrl}/low-stock`);
+  }
+
+  /**
    * Add/Register a new tradingItem
    * @param tradingItem - TradingItem object
    * @returns Observable of the created TradingItem

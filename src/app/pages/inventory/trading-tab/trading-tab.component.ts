@@ -10,6 +10,8 @@ import { TradingItem } from '../../../shared/models/trading-item.model';
 import { BrowserModule } from '@angular/platform-browser';
 import { AdjustQuantityModalComponent } from "./modals/adjust-quantity-modal/adjust-quantity-modal.component";
 import { ManageTradingModalComponent } from "./modals/manage-trading-modal/manage-trading-modal.component";
+import { LowStockModalComponent } from "./modals/low-stock-modal/low-stock-modal.component";
+import { DeleteItemsModalComponent } from "./modals/delete-items-modal/delete-items-modal.component";
 
 @Component({
   selector: 'app-trading-tab',
@@ -20,7 +22,9 @@ import { ManageTradingModalComponent } from "./modals/manage-trading-modal/manag
     ToastComponent,
     FormsModule,
     AdjustQuantityModalComponent,
-    ManageTradingModalComponent
+    ManageTradingModalComponent,
+    LowStockModalComponent,
+    DeleteItemsModalComponent
 ],
   templateUrl: './trading-tab.component.html',
   styleUrl: './trading-tab.component.scss'
@@ -37,6 +41,9 @@ export class TradingTabComponent {
 
   selectedItem: any;
 
+  isLow: boolean = false;
+  lowStocks: TradingItem[] = [];
+
   constructor(
     private service: TradingTabService,
     private toastService: ToastService
@@ -44,6 +51,7 @@ export class TradingTabComponent {
   
   ngOnInit(): void {
     this.fetchPaginatedData(this.currentPage);
+    this.fetchLowStocks();
   }
 
   fetchPaginatedData(page: number, query?: string) {
@@ -97,6 +105,35 @@ export class TradingTabComponent {
       }
     }
     console.log('Selected Items:', this.selectedItems); // You can check the updated selected items here
+  }
+
+  fetchLowStocks() {
+    this.service.getLowStocks().subscribe({
+      next: (response) => {
+        // Extract body data
+        this.lowStocks = response;
+        console.log('Response body:', this.lowStocks);
+
+        if (this.lowStocks.length > 0) {
+          this.isLow = true;
+        } else {
+          this.isLow = false;
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching paginated data', err);
+      }
+    });
+  }
+
+  seeLowStocks() {
+    const modalElement = document.getElementById('lowStockModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID 'lowStockModal' not found.");
+    }
   }
 
   onAdd() {
@@ -171,19 +208,29 @@ export class TradingTabComponent {
     }
   }
 
-  onDelete() {
-    this.service.delete(this.selectedItems).subscribe({
-      next: (data: any) => {
-        this.toastService.show('TradingItem/s deleted successfully!', 'success');
+  onSaveDelete(data: any) {
+    // Close the modal after saving data
+    const modalElement = document.getElementById('deleteItemsModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide(); // Safely hide the modal if an instance exists
         this.fetchPaginatedData(this.currentPage);
-      },
-      error: (msg: any) => {
-        console.log("error:", msg);
-        this.toastService.show(
-          'Failed to delete item/s. Please try again.',
-          'danger'
-        );
-      },
-    });
+      } else {
+        console.error("No Bootstrap modal instance found for 'deleteItemsModal'.");
+      }
+    } else {
+      console.error("Modal element with ID 'deleteItemsModal' not found.");
+    }
+  }
+
+  onDelete() {
+    const modalElement = document.getElementById('deleteItemsModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID 'deleteItemsModal' not found.");
+    }
   }
 }
