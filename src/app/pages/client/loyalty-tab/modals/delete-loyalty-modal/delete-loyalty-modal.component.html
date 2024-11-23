@@ -1,0 +1,19 @@
+<div class="modal fade" id="deleteLoyaltyModal" tabindex="-1" aria-labelledby="deleteLoyaltyModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteLoyaltyModalLabel">Delete Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        <p>Are you sure you want to delete the selected discount/s?</p>
+        <div class="d-flex justify-content-end gap-3">
+          <button type="submit" class="btn btn-outline-danger" (click)="onClose()">No</button>
+          <button type="submit" class="btn btn-danger" (click)="onDelete()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-toast></app-toast>

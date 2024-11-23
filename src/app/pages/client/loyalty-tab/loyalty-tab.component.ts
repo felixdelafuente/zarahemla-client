@@ -1,32 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import * as bootstrap from 'bootstrap';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { Client } from '../../../shared/models/client.model';
+import * as bootstrap from 'bootstrap';
+import { Discount } from '../../../shared/models/discount.model';
 import { Pagination } from '../../../shared/models/paginated-result.model';
-import { ClientsTabService } from './clients-tab.service';
+import { LoyaltyTabService } from './loyalty-tab.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { DeleteClientsModalComponent } from "./modals/delete-clients-modal/delete-clients-modal.component";
-import { ManageClientModalComponent } from "./modals/manage-client-modal/manage-client-modal.component";
-import { Router } from '@angular/router';
+import { ManageLoyaltyModalComponent } from "./modals/manage-loyalty-modal/manage-loyalty-modal.component";
+import { DeleteLoyaltyModalComponent } from "./modals/delete-loyalty-modal/delete-loyalty-modal.component";
+import { Client } from '../../../shared/models/client.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-clients-tab',
+  selector: 'app-loyalty-tab',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
     ToastComponent,
     FormsModule,
-    DeleteClientsModalComponent,
-    ManageClientModalComponent
+    ManageLoyaltyModalComponent,
+    DeleteLoyaltyModalComponent
 ],
-  templateUrl: './clients-tab.component.html',
-  styleUrl: './clients-tab.component.scss'
+  templateUrl: './loyalty-tab.component.html',
+  styleUrl: './loyalty-tab.component.scss'
 })
-export class ClientsTabComponent {
-  paginatedData: Client[] = [];  // Store paginated data
+export class LoyaltyTabComponent {
+  paginatedData: Discount[] = [];  // Store paginated data
   currentPage: number = 1;
   pageSize: number = 10;  // Adjust the page size
   totalPages: number = 1;
@@ -38,20 +39,29 @@ export class ClientsTabComponent {
   selectedItem: any;
 
   isLow: boolean = false;
-  lowStocks: Client[] = [];
+  lowStocks: Discount[] = [];
+
+  clientId: string = "";
 
   constructor(
-    private service: ClientsTabService,
-    private toastClient: ToastService,
-    private router: Router
+    private service: LoyaltyTabService,
+    private toastDiscount: ToastService,
+    private route: ActivatedRoute
   ) { }
   
   ngOnInit(): void {
-    this.fetchPaginatedData(this.currentPage);
+    this.clientId = this.route.snapshot.paramMap.get('id') || '';
+
+    if (this.clientId != "") {
+      console.log("clientId", this.clientId);
+      this.fetchPaginatedData(this.currentPage, undefined, this.clientId);
+    } else {
+      this.fetchPaginatedData(this.currentPage);
+    }
   }
 
-  fetchPaginatedData(page: number, query?: string) {
-    this.service.getPaginated(page, query).subscribe({
+  fetchPaginatedData(page: number, query?: string, clientId?: string) {
+    this.service.getPaginated(page, query, clientId).subscribe({
       next: (response) => {
         const paginationHeader = response.headers.get('Pagination');
         if (paginationHeader) {
@@ -104,12 +114,12 @@ export class ClientsTabComponent {
   }
 
   onAdd() {
-    const modalElement = document.getElementById('manageClientModal');
+    const modalElement = document.getElementById('manageLoyaltyModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show(); // Manually show the modal
     } else {
-      console.error("Modal element with ID 'manageClientModal' not found.");
+      console.error("Modal element with ID 'manageLoyaltyModal' not found.");
     }
   }
 
@@ -118,60 +128,55 @@ export class ClientsTabComponent {
     console.log('Updateddata:', item);
 
     // Close the modal after saving data
-    const modalElement = document.getElementById('manageClientModal');
+    const modalElement = document.getElementById('manageLoyaltyModal');
     if (modalElement) {
       const modal = bootstrap.Modal.getInstance(modalElement);
       if (modal) {
         modal.hide(); // Safely hide the modal if an instance exists
         this.fetchPaginatedData(this.currentPage);
       } else {
-        console.error("No Bootstrap modal instance found for 'manageClientModal'.");
+        console.error("No Bootstrap modal instance found for 'manageLoyaltyModal'.");
       }
     } else {
-      console.error("Modal element with ID 'manageClientModal' not found.");
+      console.error("Modal element with ID 'manageLoyaltyModal' not found.");
     }
   }
   
-  onEdit(item: Client) {
+  onEdit(item: Discount) {
     this.selectedItem = item;
 
-    const modalElement = document.getElementById('manageClientModal');
+    const modalElement = document.getElementById('manageLoyaltyModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show(); // Manually show the modal
     } else {
-      console.error("Modal element with ID 'manageClientModal' not found.");
+      console.error("Modal element with ID 'manageLoyaltyModal' not found.");
     }
-  }
-
-  onViewClient(item: Client) {
-    // sessionStorage.setItem('clientData', JSON.stringify(this.selectedItem));
-    this.router.navigateByUrl('/client/billing-client/details/'+ item._id);
   }
 
   onSaveDelete(data: any) {
     // Close the modal after saving data
-    const modalElement = document.getElementById('deleteClientsModal');
+    const modalElement = document.getElementById('deleteLoyaltyModal');
     if (modalElement) {
       const modal = bootstrap.Modal.getInstance(modalElement);
       if (modal) {
         modal.hide(); // Safely hide the modal if an instance exists
-        this.fetchPaginatedData(this.currentPage);
+        this.fetchPaginatedData(this.currentPage, undefined, this.clientId);
       } else {
-        console.error("No Bootstrap modal instance found for 'deleteClientsModal'.");
+        console.error("No Bootstrap modal instance found for 'deleteLoyaltyModal'.");
       }
     } else {
-      console.error("Modal element with ID 'deleteClientsModal' not found.");
+      console.error("Modal element with ID 'deleteLoyaltyModal' not found.");
     }
   }
 
   onDelete() {
-    const modalElement = document.getElementById('deleteClientsModal');
+    const modalElement = document.getElementById('deleteLoyaltyModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show(); // Manually show the modal
     } else {
-      console.error("Modal element with ID 'deleteClientsModal' not found.");
+      console.error("Modal element with ID 'deleteLoyaltyModal' not found.");
     }
   }
 }

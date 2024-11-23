@@ -1,0 +1,47 @@
+<div class="d-flex flex-column gap-3">
+  <div class="d-flex gap-3 align-items-center">
+    <div>
+      <button type="button" class="btn btn-secondary btn-sm" (click)="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+        </svg>
+      </button>
+    </div>
+    <h1><b><i>CLIENT MANAGEMENT</i></b></h1>
+  </div>
+  <ul class="nav nav-pills align-items-center" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase"
+        type="button" role="tab" aria-controls="pills-purchase" aria-selected="true">PURCHASE HISTORY</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-service-tab" data-bs-toggle="pill" data-bs-target="#pills-service"
+        type="button" role="tab" aria-controls="pills-service" aria-selected="false">SERVICE HISTORY</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-loyalty-tab" data-bs-toggle="pill" data-bs-target="#pills-loyalty" type="button"
+        role="tab" aria-controls="pills-loyalty" aria-selected="false">LOYALTY PROGRAMS</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-vehicle-tab" data-bs-toggle="pill" data-bs-target="#pills-vehicle" type="button"
+        role="tab" aria-controls="pills-vehicle" aria-selected="false">VEHICLES</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab"
+      tabindex="0">
+      1
+    </div>
+    <div class="tab-pane fade" id="pills-service" role="tabpanel" aria-labelledby="pills-service-tab" tabindex="1">
+      2
+    </div>
+    <div class="tab-pane fade" id="pills-loyalty" role="tabpanel" aria-labelledby="pills-loyalty-tab" tabindex="2">
+      <app-loyalty-tab></app-loyalty-tab>
+    </div>
+    <div class="tab-pane fade" id="pills-vehicle" role="tabpanel" aria-labelledby="pills-vehicle-tab" tabindex="3">
+      <app-vehicle-tab></app-vehicle-tab>
+    </div>
+  </div>
+</div>

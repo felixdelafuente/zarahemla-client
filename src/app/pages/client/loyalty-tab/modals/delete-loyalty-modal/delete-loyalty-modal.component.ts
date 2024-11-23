@@ -1,40 +1,41 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ToastComponent } from "../../../../../shared/components/toast/toast.component";
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import * as bootstrap from 'bootstrap';
-import { ServicesTabService } from '../../services-tab.service';
 import { ToastService } from '../../../../../core/services/toast.service';
+import { ToastComponent } from '../../../../../shared/components/toast/toast.component';
+import { ServicesTabService } from '../../../../inventory/services-tab/services-tab.service';
+import { LoyaltyTabService } from '../../loyalty-tab.service';
 
 @Component({
-  selector: 'app-delete-services-modal',
+  selector: 'app-delete-loyalty-modal',
   standalone: true,
   imports: [
     CommonModule,
     ToastComponent
   ],
-  templateUrl: './delete-services-modal.component.html',
-  styleUrl: './delete-services-modal.component.scss'
+  templateUrl: './delete-loyalty-modal.component.html',
+  styleUrl: './delete-loyalty-modal.component.scss'
 })
-export class DeleteServicesModalComponent {
+export class DeleteLoyaltyModalComponent {
   @Input() selectedItems: { ids: string[] } = { ids: [] }; // to receive the object
   @Output() onSave = new EventEmitter<any>(); // to emit save event back to parent component
 
   constructor(
-    private service: ServicesTabService,
+    private service: LoyaltyTabService,
     private toastService: ToastService
   ) { }
 
   onClose() {
-    const modalElement = document.getElementById('deleteServicesModal');
+    const modalElement = document.getElementById('deleteLoyaltyModal');
     if (modalElement) {
       const modal = bootstrap.Modal.getInstance(modalElement);
       if (modal) {
         modal.hide(); // Safely hide the modal if an instance exists
       } else {
-        console.error("No Bootstrap modal instance found for 'deleteServicesModal'.");
+        console.error("No Bootstrap modal instance found for 'deleteLoyaltyModal'.");
       }
     } else {
-      console.error("Modal element with ID 'deleteServicesModal' not found.");
+      console.error("Modal element with ID 'deleteLoyaltyModal' not found.");
     }
   }
 
@@ -42,12 +43,12 @@ export class DeleteServicesModalComponent {
     this.service.delete(this.selectedItems).subscribe({
       next: (data: any) => {
         this.onSave.emit(data);
-        this.toastService.show('Service item/s deleted successfully!', 'success');
+        this.toastService.show('Discount/s deleted successfully!', 'success');
       },
       error: (msg: any) => {
         console.log("error:", msg);
         this.toastService.show(
-          'Failed to delete item/s. Please try again.',
+          'Failed to delete discount/s. Please try again.',
           'danger'
         );
       },

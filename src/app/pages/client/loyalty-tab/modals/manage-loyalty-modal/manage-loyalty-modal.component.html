@@ -1,0 +1,32 @@
+<div class="modal fade" id="manageLoyaltyModal" tabindex="-1" aria-labelledby="manageLoyaltyModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="manageLoyaltyModalLabel">{{ item ? 'Edit Discount' : 'Add Discount' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        <form [formGroup]="manageLoyaltyForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6 mb-3">
+              <label for="dateIssued" class="form-label">Date Issued</label>
+              <input type="date" class="form-control" id="dateIssued" formControlName="dateIssued" required>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="value" class="form-label">Discount Value</label>
+              <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="value" formControlName="value"
+                  aria-label="Amount (to the nearest PHP)">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-danger">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

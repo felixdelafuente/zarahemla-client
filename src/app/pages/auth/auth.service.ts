@@ -27,12 +27,12 @@ export class AuthService {
     return new Observable((observer) => {
       this.http.post<any>(`${this.baseUrl}/authenticate`, loginData).subscribe({
         next: (response) => {
-          // Save token in localStorage
+          // Save token in sessionStorage
           const token = JSON.stringify({
             user: response.user,
             token: response.token,
           });
-          localStorage.setItem(this.tokenKey, token);
+          sessionStorage.setItem(this.tokenKey, token);
           observer.next(response);
           observer.complete();
         },
@@ -43,10 +43,10 @@ export class AuthService {
 
   /**
    * Logout the user
-   * Clears the token from localStorage
+   * Clears the token from sessionStorage
    */
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem(this.tokenKey);
   }
 
   /**
@@ -54,7 +54,7 @@ export class AuthService {
    * @returns User object if token exists, otherwise undefined
    */
   getCurrentUser(): User | undefined {
-    const tokenData = localStorage.getItem(this.tokenKey);
+    const tokenData = sessionStorage.getItem(this.tokenKey);
     if (tokenData) {
       const parsedData = JSON.parse(tokenData);
       return parsedData.user;
@@ -67,6 +67,6 @@ export class AuthService {
    * @returns true if the user is logged in, false otherwise
    */
   isAuthenticated(): boolean {
-    return localStorage.getItem(this.tokenKey) !== null;
+    return sessionStorage.getItem(this.tokenKey) !== null;
   }
 }
