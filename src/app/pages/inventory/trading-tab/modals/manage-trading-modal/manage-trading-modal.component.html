@@ -10,7 +10,26 @@
           <div class="row">
             <div class="col-lg-6 mb-3">
               <label for="category" class="form-label">Category</label>
-              <input type="text" class="form-control" id="category" formControlName="category" required>
+              <div class="input-group mb-3">
+                <select class="form-select" id="category" formControlName="category" required>
+                  <option selected>Choose...</option>
+                  <option value="R12">R12</option>
+                  <option value="R13">R13</option>
+                  <option value="R14">R14</option>
+                  <option value="R15">R15</option>
+                  <option value="R16">R16</option>
+                  <option value="R17">R17</option>
+                  <option value="R18">R18</option>
+                  <option value="R19">R19</option>
+                  <option value="R20">R20</option>
+                  <option value="Battery">Battery</option>
+                  <option value="TBR">TBR</option>
+                  <option value="O-Ring">O-Ring</option>
+                  <option value="Flaps">Flaps</option>
+                  <option value="Rim">Rim</option>
+                  <option value="Tubes">Tubes</option>
+                </select>
+              </div>
             </div>
             <div class="col-lg-6 mb-3">
               <label for="size" class="form-label">Size</label>

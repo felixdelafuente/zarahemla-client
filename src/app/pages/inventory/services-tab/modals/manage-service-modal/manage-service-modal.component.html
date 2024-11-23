@@ -1,0 +1,56 @@
+<div class="modal fade" id="manageServiceModal" tabindex="-1" aria-labelledby="manageServiceModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="manageServiceModalLabel">{{ item ? 'Edit Service' : 'Add Service' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        <form [formGroup]="manageServiceForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6 mb-3">
+              <label for="serviceCategory" class="form-label">Category</label>
+              <div class="input-group mb-3">
+                <select class="form-select" id="serviceCategory" formControlName="serviceCategory" required>
+                  <option selected>Choose...</option>
+                  <option value="Item">Item</option>
+                  <option value="Service">Service</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <input type="text" class="form-control" id="description" formControlName="description" required>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="duration" class="form-label">Duration</label>
+              <input type="text" class="form-control" id="duration" formControlName="duration" required>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="frequency" class="form-label">Frequency</label>
+              <input type="text" class="form-control" id="frequency" formControlName="frequency" required>
+            </div>
+            <div class="col-lg-6 mb-3">
+              <label for="sellingPrice" class="form-label">Selling Price</label>
+              <div class="input-group">
+                <span class="input-group-text">₱</span>
+                <input type="text" class="form-control" id="sellingPrice" formControlName="sellingPrice"
+                  aria-label="Amount (to the nearest PHP)">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-danger">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

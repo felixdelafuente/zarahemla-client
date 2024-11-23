@@ -1,96 +1,96 @@
 <div class="card text-white bg-dark">
   <div class="card-body">
-    <div class="d-flex justify-content-between mb-3">
-      <div class="d-flex gap-3">
-        <div class="d-flex justify-content-start">
-          <button type="submit" class="btn btn-danger" (click)="onAdd()">ADD ITEM</button>
-        </div>
+    <!-- Top Controls Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+      <!-- Action Buttons Group -->
+      <div class="d-flex flex-column flex-md-row gap-3">
+        <button type="submit" class="btn btn-danger w-100" (click)="onAdd()">ADD&nbsp;ITEM</button>
+
         @if (isLow) {
-          <div class="d-flex justify-content-start">
-            <button type="button" class="btn btn-danger position-relative" (click)="seeLowStocks()">
-              LOW STOCKS
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black">
-                {{ lowStocks.length }}
-                <span class="visually-hidden">unread messages</span>
-              </span>
-            </button>
-          </div>
+        <button type="button" class="btn btn-danger position-relative w-100 w-md-auto" (click)="seeLowStocks()">
+          LOW&nbsp;STOCKS
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black">
+            {{ lowStocks.length }}
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </button>
         } @else {
-          <div class="d-flex justify-content-start">
-            <button type="button" class="btn btn-danger" disabled>LOW STOCKS</button>
-          </div>
+        <button type="button" class="btn btn-danger w-100 w-md-auto" disabled>LOW&nbsp;STOCKS</button>
         }
-        
       </div>
-      <div class="input-group w-25">
+
+      <!-- Search Bar -->
+      <div class="input-group">
         <input type="text" class="form-control" placeholder="Type a brand" aria-label="Type a brand"
           [(ngModel)]="searchQuery">
-        <div class="input-group-append">
-          <button class="btn btn-outline-light" type="button" (click)="fetchPaginatedData(currentPage, searchQuery)">
-            SEARCH
-          </button>
-        </div>
+        <button class="btn btn-outline-light" type="button" (click)="fetchPaginatedData(currentPage, searchQuery)">
+          SEARCH
+        </button>
       </div>
     </div>
-    
-    
-    <!-- Table -->
-    <table class="table table-striped table-secondary table-hover table-responsive">
-      <thead>
-        <tr>
-          <th scope="col">&nbsp;</th>
-          <th scope="col">#</th>
-          <th scope="col">Size</th>
-          <th scope="col">Brand</th>
-          <th scope="col">Description</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Unit</th>
-          <th scope="col">Price</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Loop through the paginated item data -->
-        <tr *ngFor="let item of paginatedData; let i = index">
-          <!-- Checkbox to select items -->
-          <td>
-            <input type="checkbox" [checked]="isSelected(item._id)" (change)="onRowCheckboxChange($event, item._id)" />
-          </td>
-          <th scope="row">{{ (currentPage - 1) * pageSize + i + 1 }}</th>
-          <td>{{ item.size }}</td>
-          <td>{{ item.brand }}</td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.quantity | number }}</td>
-          <td>{{ item.unit }}</td>
-          <td>{{ item.sellingPrice | currency:'PHP':'symbol':'1.2-2' }}</td>
-          <td class="d-flex gap-3">
-            <button type="button" class="btn btn-success" (click)="onAddQuantity(item)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-              </svg>
-            </button>
-            <button type="button" class="btn btn-secondary btn-block" (click)="onEdit(item)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
-                viewBox="0 0 16 16">
-                <path
-                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
-                </path>
-                <path fill-rule="evenodd"
-                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z">
-                </path>
-              </svg>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
-    <!-- Pagination -->
-    <div class="d-flex justify-content-between">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
+    <!-- Table Responsive Wrapper -->
+    <div class="table-responsive">
+      <table class="table table-striped table-secondary table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="text-nowrap">&nbsp;</th>
+            <th scope="col" class="text-nowrap">#</th>
+            <th scope="col" class="text-nowrap">Category</th>
+            <th scope="col" class="text-nowrap">Size</th>
+            <th scope="col" class="text-nowrap">Brand</th>
+            <th scope="col" class="text-nowrap">Description</th>
+            <th scope="col" class="text-nowrap">Qty</th>
+            <th scope="col" class="text-nowrap">Unit</th>
+            <th scope="col" class="text-nowrap">Price</th>
+            <th scope="col" class="text-nowrap">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of paginatedData; let i = index">
+            <td>
+              <input type="checkbox" [checked]="isSelected(item._id)"
+                (change)="onRowCheckboxChange($event, item._id)" />
+            </td>
+            <th scope="row">{{ (currentPage - 1) * pageSize + i + 1 }}</th>
+            <td>{{ item.category }}</td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.brand }}</td>
+            <td class="text-break">{{ item.description }}</td>
+            <td>{{ item.quantity | number }}</td>
+            <td>{{ item.unit }}</td>
+            <td>{{ item.sellingPrice | currency:'PHP':'symbol':'1.2-2' }}</td>
+            <td>
+              <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="btn btn-success btn-sm" (click)="onAddQuantity(item)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                  </svg>
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="onEdit(item)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                    </path>
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z">
+                    </path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination and Delete Section -->
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mt-3">
+      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination pagination-sm flex-wrap">
           <li class="page-item" [class.disabled]="currentPage === 1">
             <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
           </li>
@@ -102,23 +102,24 @@
           </li>
         </ul>
       </nav>
-      <div>
-        <button type="delete" class="btn btn-danger btn-block" (click)="onDelete()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-            viewBox="0 0 16 16">
-            <path
-              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-            <path
-              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-          </svg>
-          DELETE
-        </button>
-      </div>
+
+      <button type="button" class="btn btn-danger" (click)="onDelete()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+          viewBox="0 0 16 16">
+          <path
+            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+          <path
+            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+        </svg>
+        DELETE
+      </button>
     </div>
   </div>
 </div>
+
 <app-toast></app-toast>
 <app-low-stock-modal class="z-3"></app-low-stock-modal>
-<app-adjust-quantity-modal class="z-2" [item]="selectedItem" (onSave)="onSaveQuantity($event)"></app-adjust-quantity-modal>
+<app-adjust-quantity-modal class="z-2" [item]="selectedItem"
+  (onSave)="onSaveQuantity($event)"></app-adjust-quantity-modal>
 <app-manage-trading-modal [item]="selectedItem" (onSave)="onSave($event)"></app-manage-trading-modal>
 <app-delete-items-modal [selectedItems]="selectedItems" (onSave)="onSaveDelete($event)"></app-delete-items-modal>

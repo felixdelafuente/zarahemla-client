@@ -1,13 +1,12 @@
-<div class="modal fade" id="deleteItemsModal" tabindex="-1" aria-labelledby="deleteItemsModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="deleteServicesModal" tabindex="-1" aria-labelledby="deleteServicesModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteItemsModalLabel">Delete Confirmation</h5>
+        <h5 class="modal-title" id="deleteServicesModalLabel">Delete Confirmation</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-        <p>Are you sure you want to delete the selected item/s?</p>
+        <p>Are you sure you want to delete the selected service/s?</p>
         <div class="d-flex justify-content-end gap-3">
           <button type="submit" class="btn btn-outline-danger" (click)="onClose()">No</button>
           <button type="submit" class="btn btn-danger" (click)="onDelete()">Yes</button>

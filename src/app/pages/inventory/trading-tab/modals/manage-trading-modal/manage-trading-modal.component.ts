@@ -35,7 +35,7 @@ export class ManageTradingModalComponent {
       description: ['', [Validators.required]],
       quantity: [0, [Validators.required]],
       unit: ['', [Validators.required]],
-      sellingPrice: ['', [Validators.required]]
+      sellingPrice: [0, [Validators.required]]
     });
   }
 
