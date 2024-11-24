@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Client } from '../../shared/models/client.model';
 import { LoyaltyTabComponent } from "./loyalty-tab/loyalty-tab.component";
 import { VehicleTabComponent } from "./vehicle-tab/vehicle-tab.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-client',
@@ -19,7 +19,10 @@ import { ActivatedRoute } from '@angular/router';
 export class ClientComponent {
   clientId: string = "";
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
   
   ngOnInit() {
     this.clientId = this.route.snapshot.paramMap.get('id') || '';
@@ -30,6 +33,6 @@ export class ClientComponent {
   }
 
   goBack() {
-    
+    this.router.navigateByUrl('/client/billing-client')
   }
 }
