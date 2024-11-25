@@ -4,6 +4,8 @@ import { Client } from '../../shared/models/client.model';
 import { LoyaltyTabComponent } from "./loyalty-tab/loyalty-tab.component";
 import { VehicleTabComponent } from "./vehicle-tab/vehicle-tab.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { PurchaseTabComponent } from "./purchase-tab/purchase-tab.component";
+import { ServiceTabComponent } from "./service-tab/service-tab.component";
 
 @Component({
   selector: 'app-client',
@@ -11,7 +13,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [
     CommonModule,
     LoyaltyTabComponent,
-    VehicleTabComponent
+    VehicleTabComponent,
+    PurchaseTabComponent,
+    ServiceTabComponent
 ],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
@@ -33,6 +37,6 @@ export class ClientComponent {
   }
 
   goBack() {
-    this.router.navigateByUrl('/client/billing-client')
+    this.router.navigateByUrl('/management/billing-client')
   }
 }

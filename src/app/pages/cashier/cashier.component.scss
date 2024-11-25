@@ -1,0 +1,48 @@
+#cashier-card {
+  height: 85vh;
+  overflow-y: hidden;
+}
+
+#hover-list {
+  position: absolute;
+  /* Ensure it overlaps */
+  z-index: 2;
+  /* Higher stacking order */
+  top: 100%;
+  /* Push below the input field */
+  background: white;
+  /* Ensure it's visually distinct */
+  max-height: 200px;
+  /* Optional: Limit the height */
+  overflow-y: auto;
+  /* Enable scrolling for long lists */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Add a shadow for clarity */
+}
+
+.vl {
+  border-left: 1px solid rgb(202, 202, 202);
+  height: 100%;
+}
+
+.cashier-container {
+  height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  /* For Firefox */
+  scrollbar-color: #d6d6d6 transparent;
+  /* For Firefox */
+}
+
+.cashier-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cashier-container::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6;
+  border-radius: 10px;
+}
+
+.cashier-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}

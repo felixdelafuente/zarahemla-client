@@ -1,0 +1,19 @@
+<div class="modal fade" id="confirmCheckoutModal" tabindex="-1" aria-labelledby="confirmCheckoutModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmCheckoutModalLabel">Checkout Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+        <p>Are you sure the details are correct?</p>
+        <div class="d-flex justify-content-end gap-3">
+          <button type="submit" class="btn btn-outline-danger" (click)="onClose()">No</button>
+          <button type="submit" class="btn btn-danger" (click)="onCheckout()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-toast></app-toast>

@@ -6,6 +6,8 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { InventoryComponent } from './pages/inventory/inventory.component';
 import { BillingClientComponent } from './pages/billing-client/billing-client.component';
 import { ClientComponent } from './pages/client/client.component';
+import { CashierComponent } from './pages/cashier/cashier.component';
+import { SalesComponent } from './pages/sales/sales.component';
 
 export const routes: Routes = [
   {
@@ -14,7 +16,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'client',
+    path: 'management',
     component: LayoutComponent,
     children: [
       {
@@ -30,12 +32,26 @@ export const routes: Routes = [
         component: InventoryComponent
       },
       {
+        path: 'sales',
+        component: SalesComponent
+      },
+      {
         path: 'billing-client',
         component: BillingClientComponent,
       },
       {
         path: 'billing-client/details/:id',
         component: ClientComponent,
+      }
+    ]
+  },
+  {
+    path: 'pos',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'cashier',
+        component: CashierComponent
       }
     ]
   }

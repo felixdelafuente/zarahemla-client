@@ -52,7 +52,7 @@ export class AuthComponent implements OnInit {
           console.log('Login successful:', response);
           this.currentUser = this.authService.getCurrentUser();
           console.log('Current User:', this.currentUser);
-          this.router.navigateByUrl('/client/dashboard');
+          this.router.navigateByUrl('/management/dashboard');
         },
         error: (err: any) => {
           console.error('Login failed:', err);

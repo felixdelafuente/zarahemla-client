@@ -146,7 +146,7 @@ export class ClientsTabComponent {
 
   onViewClient(item: Client) {
     // sessionStorage.setItem('clientData', JSON.stringify(this.selectedItem));
-    this.router.navigateByUrl('/client/billing-client/details/'+ item._id);
+    this.router.navigateByUrl('/management/billing-client/details/'+ item._id);
   }
 
   onSaveDelete(data: any) {
