@@ -6,14 +6,13 @@ import { ServicesTabService } from '../../services-tab.service';
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-  selector: 'app-delete-services-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ToastComponent
-  ],
-  templateUrl: './delete-services-modal.component.html',
-  styleUrl: './delete-services-modal.component.scss'
+    selector: 'app-delete-services-modal',
+    imports: [
+        CommonModule,
+        ToastComponent
+    ],
+    templateUrl: './delete-services-modal.component.html',
+    styleUrl: './delete-services-modal.component.scss'
 })
 export class DeleteServicesModalComponent {
   @Input() selectedItems: { ids: string[] } = { ids: [] }; // to receive the object

@@ -6,14 +6,13 @@ import { ToastService } from '../../../../../core/services/toast.service';
 import { LoyaltyTabService } from '../../loyalty-tab.service';
 
 @Component({
-  selector: 'app-manage-loyalty-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './manage-loyalty-modal.component.html',
-  styleUrl: './manage-loyalty-modal.component.scss'
+    selector: 'app-manage-loyalty-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './manage-loyalty-modal.component.html',
+    styleUrl: './manage-loyalty-modal.component.scss'
 })
 export class ManageLoyaltyModalComponent {
   @Input() item: any; // to receive the user object

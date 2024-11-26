@@ -7,14 +7,13 @@ import { ToastComponent } from '../../../../shared/components/toast/toast.compon
 import { NewSale } from '../../../../shared/models/new-sale.model';
 
 @Component({
-  selector: 'app-confirmation-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ToastComponent
-  ],
-  templateUrl: './confirmation-modal.component.html',
-  styleUrl: './confirmation-modal.component.scss'
+    selector: 'app-confirmation-modal',
+    imports: [
+        CommonModule,
+        ToastComponent
+    ],
+    templateUrl: './confirmation-modal.component.html',
+    styleUrl: './confirmation-modal.component.scss'
 })
 export class ConfirmationModalComponent {
   @Input() checkoutData: NewSale | undefined; // to receive the object

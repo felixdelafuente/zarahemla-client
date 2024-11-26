@@ -11,18 +11,17 @@ import { ManageServiceModalComponent } from "./modals/manage-service-modal/manag
 import { DeleteServicesModalComponent } from "./modals/delete-services-modal/delete-services-modal.component";
 
 @Component({
-  selector: 'app-services-tab',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-    ManageServiceModalComponent,
-    DeleteServicesModalComponent
-],
-  templateUrl: './services-tab.component.html',
-  styleUrl: './services-tab.component.scss'
+    selector: 'app-services-tab',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+        ManageServiceModalComponent,
+        DeleteServicesModalComponent
+    ],
+    templateUrl: './services-tab.component.html',
+    styleUrl: './services-tab.component.scss'
 })
 export class ServicesTabComponent {
   paginatedData: Service[] = [];  // Store paginated data

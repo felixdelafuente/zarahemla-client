@@ -7,14 +7,13 @@ import { TradingItem } from '../../../../../shared/models/trading-item.model';
 import { NewTradingItem } from '../../../../../shared/models/new-trading-item.model';
 
 @Component({
-  selector: 'app-manage-trading-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './manage-trading-modal.component.html',
-  styleUrl: './manage-trading-modal.component.scss'
+    selector: 'app-manage-trading-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './manage-trading-modal.component.html',
+    styleUrl: './manage-trading-modal.component.scss'
 })
 export class ManageTradingModalComponent {
   @Input() item: any; // to receive the user object

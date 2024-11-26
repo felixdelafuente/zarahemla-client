@@ -6,14 +6,13 @@ import { ToastService } from '../../../../../core/services/toast.service';
 import { NewVehicle } from '../../../../../shared/models/new-vehicle.model';
 
 @Component({
-  selector: 'app-manage-vehicle-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './manage-vehicle-modal.component.html',
-  styleUrl: './manage-vehicle-modal.component.scss'
+    selector: 'app-manage-vehicle-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './manage-vehicle-modal.component.html',
+    styleUrl: './manage-vehicle-modal.component.scss'
 })
 export class ManageVehicleModalComponent {
   @Input() item: any; // to receive the user object

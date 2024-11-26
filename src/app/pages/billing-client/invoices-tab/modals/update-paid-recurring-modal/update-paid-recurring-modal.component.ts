@@ -8,16 +8,15 @@ import { NewSale } from '../../../../../shared/models/new-sale.model';
 import { CashierService } from '../../../../cashier/cashier.service';
 
 @Component({
-  selector: 'app-update-paid-recurring-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ToastComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './update-paid-recurring-modal.component.html',
-  styleUrl: './update-paid-recurring-modal.component.scss'
+    selector: 'app-update-paid-recurring-modal',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ToastComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './update-paid-recurring-modal.component.html',
+    styleUrl: './update-paid-recurring-modal.component.scss'
 })
 export class UpdatePaidRecurringModalComponent {
   @Input() transaction: any; // to receive the user object

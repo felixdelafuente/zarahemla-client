@@ -6,14 +6,13 @@ import { UserManagementService } from '../../user-management.service';
 import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
-  selector: 'app-manage-user-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './manage-user-modal.component.html',
-  styleUrl: './manage-user-modal.component.scss'
+    selector: 'app-manage-user-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './manage-user-modal.component.html',
+    styleUrl: './manage-user-modal.component.scss'
 })
 export class ManageUserModalComponent {
   @Input() user: any; // to receive the user object

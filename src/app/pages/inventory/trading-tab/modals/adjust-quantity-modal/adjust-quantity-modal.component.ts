@@ -7,16 +7,15 @@ import { TradingTabService } from '../../trading-tab.service';
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-  selector: 'app-adjust-quantity-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-  ],
-  templateUrl: './adjust-quantity-modal.component.html',
-  styleUrl: './adjust-quantity-modal.component.scss'
+    selector: 'app-adjust-quantity-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+    ],
+    templateUrl: './adjust-quantity-modal.component.html',
+    styleUrl: './adjust-quantity-modal.component.scss'
 })
 export class AdjustQuantityModalComponent {
   @Input() item: TradingItem | undefined = undefined; // to receive the object

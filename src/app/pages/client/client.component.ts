@@ -8,17 +8,16 @@ import { PurchaseTabComponent } from "./purchase-tab/purchase-tab.component";
 import { ServiceTabComponent } from "./service-tab/service-tab.component";
 
 @Component({
-  selector: 'app-client',
-  standalone: true,
-  imports: [
-    CommonModule,
-    LoyaltyTabComponent,
-    VehicleTabComponent,
-    PurchaseTabComponent,
-    ServiceTabComponent
-],
-  templateUrl: './client.component.html',
-  styleUrl: './client.component.scss'
+    selector: 'app-client',
+    imports: [
+        CommonModule,
+        LoyaltyTabComponent,
+        VehicleTabComponent,
+        PurchaseTabComponent,
+        ServiceTabComponent
+    ],
+    templateUrl: './client.component.html',
+    styleUrl: './client.component.scss'
 })
 export class ClientComponent {
   clientId: string = "";

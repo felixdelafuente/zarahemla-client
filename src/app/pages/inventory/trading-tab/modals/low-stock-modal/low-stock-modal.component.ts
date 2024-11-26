@@ -7,13 +7,12 @@ import * as bootstrap from 'bootstrap';
 import { AdjustQuantityModalComponent } from "../adjust-quantity-modal/adjust-quantity-modal.component";
 
 @Component({
-  selector: 'app-low-stock-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-],
-  templateUrl: './low-stock-modal.component.html',
-  styleUrl: './low-stock-modal.component.scss'
+    selector: 'app-low-stock-modal',
+    imports: [
+        CommonModule,
+    ],
+    templateUrl: './low-stock-modal.component.html',
+    styleUrl: './low-stock-modal.component.scss'
 })
 export class LowStockModalComponent {
   @Output() onClose = new EventEmitter<any>();

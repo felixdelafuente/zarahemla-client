@@ -13,18 +13,17 @@ import { Client } from '../../../shared/models/client.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-loyalty-tab',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-    ManageLoyaltyModalComponent,
-    DeleteLoyaltyModalComponent
-],
-  templateUrl: './loyalty-tab.component.html',
-  styleUrl: './loyalty-tab.component.scss'
+    selector: 'app-loyalty-tab',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+        ManageLoyaltyModalComponent,
+        DeleteLoyaltyModalComponent
+    ],
+    templateUrl: './loyalty-tab.component.html',
+    styleUrl: './loyalty-tab.component.scss'
 })
 export class LoyaltyTabComponent {
   paginatedData: Discount[] = [];  // Store paginated data

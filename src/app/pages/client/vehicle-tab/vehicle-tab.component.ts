@@ -12,18 +12,17 @@ import { ManageVehicleModalComponent } from "./modals/manage-vehicle-modal/manag
 import { DeleteVehicleModalComponent } from "./modals/delete-vehicle-modal/delete-vehicle-modal.component";
 
 @Component({
-  selector: 'app-vehicle-tab',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-    ManageVehicleModalComponent,
-    DeleteVehicleModalComponent
-],
-  templateUrl: './vehicle-tab.component.html',
-  styleUrl: './vehicle-tab.component.scss'
+    selector: 'app-vehicle-tab',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+        ManageVehicleModalComponent,
+        DeleteVehicleModalComponent
+    ],
+    templateUrl: './vehicle-tab.component.html',
+    styleUrl: './vehicle-tab.component.scss'
 })
 export class VehicleTabComponent {
   paginatedData: Vehicle[] = [];  // Store paginated data

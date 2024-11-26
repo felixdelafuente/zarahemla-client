@@ -6,14 +6,13 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-  selector: 'app-manage-client-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './manage-client-modal.component.html',
-  styleUrl: './manage-client-modal.component.scss'
+    selector: 'app-manage-client-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './manage-client-modal.component.html',
+    styleUrl: './manage-client-modal.component.scss'
 })
 export class ManageClientModalComponent {
   @Input() item: any; // to receive the user object

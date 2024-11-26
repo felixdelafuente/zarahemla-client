@@ -8,13 +8,12 @@ import { CommonModule } from '@angular/common';
 import { ServiceTabService } from './service-tab.service';
 
 @Component({
-  selector: 'app-service-tab',
-  standalone: true,
-  imports: [
-    CommonModule
-  ],
-  templateUrl: './service-tab.component.html',
-  styleUrl: './service-tab.component.scss'
+    selector: 'app-service-tab',
+    imports: [
+        CommonModule
+    ],
+    templateUrl: './service-tab.component.html',
+    styleUrl: './service-tab.component.scss'
 })
 export class ServiceTabComponent {
   paginatedData: Sale[] = [];  // Store paginated data

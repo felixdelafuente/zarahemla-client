@@ -6,14 +6,13 @@ import { ToastService } from '../../../../../core/services/toast.service';
 import { ToastComponent } from '../../../../../shared/components/toast/toast.component';
 
 @Component({
-  selector: 'app-delete-clients-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ToastComponent
-  ],
-  templateUrl: './delete-clients-modal.component.html',
-  styleUrl: './delete-clients-modal.component.scss'
+    selector: 'app-delete-clients-modal',
+    imports: [
+        CommonModule,
+        ToastComponent
+    ],
+    templateUrl: './delete-clients-modal.component.html',
+    styleUrl: './delete-clients-modal.component.scss'
 })
 export class DeleteClientsModalComponent {
   @Input() selectedItems: { ids: string[] } = { ids: [] }; // to receive the object

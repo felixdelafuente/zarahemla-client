@@ -12,18 +12,17 @@ import { ManageClientModalComponent } from "./modals/manage-client-modal/manage-
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-clients-tab',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-    DeleteClientsModalComponent,
-    ManageClientModalComponent
-],
-  templateUrl: './clients-tab.component.html',
-  styleUrl: './clients-tab.component.scss'
+    selector: 'app-clients-tab',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+        DeleteClientsModalComponent,
+        ManageClientModalComponent
+    ],
+    templateUrl: './clients-tab.component.html',
+    styleUrl: './clients-tab.component.scss'
 })
 export class ClientsTabComponent {
   paginatedData: Client[] = [];  // Store paginated data

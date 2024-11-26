@@ -6,14 +6,13 @@ import { Credentials } from '../../shared/models/credentials.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-auth',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+    selector: 'app-auth',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './auth.component.html',
+    styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
   showSplashScreen: boolean = true;  // To control splash screen visibility

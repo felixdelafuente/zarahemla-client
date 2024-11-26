@@ -15,14 +15,13 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-sales',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
-  templateUrl: './sales.component.html',
-  styleUrl: './sales.component.scss'
+    selector: 'app-sales',
+    imports: [
+        CommonModule,
+        FormsModule
+    ],
+    templateUrl: './sales.component.html',
+    styleUrl: './sales.component.scss'
 })
 export class SalesComponent {
   reports: SaleItem[] = [];

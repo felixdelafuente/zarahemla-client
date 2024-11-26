@@ -9,14 +9,13 @@ import * as bootstrap from 'bootstrap';
 import { UpdatePaidRecurringModalComponent } from "./modals/update-paid-recurring-modal/update-paid-recurring-modal.component";
 
 @Component({
-  selector: 'app-invoices-tab',
-  standalone: true,
-  imports: [
-    CommonModule,
-    UpdatePaidRecurringModalComponent
-],
-  templateUrl: './invoices-tab.component.html',
-  styleUrl: './invoices-tab.component.scss'
+    selector: 'app-invoices-tab',
+    imports: [
+        CommonModule,
+        UpdatePaidRecurringModalComponent
+    ],
+    templateUrl: './invoices-tab.component.html',
+    styleUrl: './invoices-tab.component.scss'
 })
 export class InvoicesTabComponent {
   paginatedData: Sale[] = [];  // Store paginated data

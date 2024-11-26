@@ -3,11 +3,10 @@ import { ToastService } from '../../../core/services/toast.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-toast',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './toast.component.html',
-  styleUrl: './toast.component.scss'
+    selector: 'app-toast',
+    imports: [CommonModule],
+    templateUrl: './toast.component.html',
+    styleUrl: './toast.component.scss'
 })
 export class ToastComponent {
   // Access the `toasts` from the ToastService

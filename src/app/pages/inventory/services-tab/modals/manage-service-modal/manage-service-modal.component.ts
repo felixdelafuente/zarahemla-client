@@ -6,14 +6,13 @@ import { NewService } from '../../../../../shared/models/new-service.model';
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-  selector: 'app-manage-service-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
-  templateUrl: './manage-service-modal.component.html',
-  styleUrl: './manage-service-modal.component.scss'
+    selector: 'app-manage-service-modal',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ],
+    templateUrl: './manage-service-modal.component.html',
+    styleUrl: './manage-service-modal.component.scss'
 })
 export class ManageServiceModalComponent {
   @Input() item: any; // to receive the user object

@@ -12,16 +12,15 @@ import { ManageUserModalComponent } from "./modals/manage-user-modal/manage-user
 import * as bootstrap from 'bootstrap';
 
 @Component({
-  selector: 'app-user-management',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    ManageUserModalComponent
-],
-  templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.scss'
+    selector: 'app-user-management',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        ManageUserModalComponent
+    ],
+    templateUrl: './user-management.component.html',
+    styleUrl: './user-management.component.scss'
 })
 export class UserManagementComponent {
   addUserForm: FormGroup;

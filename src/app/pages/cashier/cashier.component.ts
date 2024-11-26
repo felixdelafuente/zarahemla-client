@@ -18,17 +18,16 @@ import { ConfirmationModalComponent } from "./modals/confirmation-modal/confirma
 import * as bootstrap from 'bootstrap';
 
 @Component({
-  selector: 'app-cashier',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-    ConfirmationModalComponent
-],
-  templateUrl: './cashier.component.html',
-  styleUrl: './cashier.component.scss'
+    selector: 'app-cashier',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+        ConfirmationModalComponent
+    ],
+    templateUrl: './cashier.component.html',
+    styleUrl: './cashier.component.scss'
 })
 export class CashierComponent {
   salesForm: FormGroup;

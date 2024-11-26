@@ -7,14 +7,13 @@ import { ServicesTabService } from '../../../../inventory/services-tab/services-
 import { LoyaltyTabService } from '../../loyalty-tab.service';
 
 @Component({
-  selector: 'app-delete-loyalty-modal',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ToastComponent
-  ],
-  templateUrl: './delete-loyalty-modal.component.html',
-  styleUrl: './delete-loyalty-modal.component.scss'
+    selector: 'app-delete-loyalty-modal',
+    imports: [
+        CommonModule,
+        ToastComponent
+    ],
+    templateUrl: './delete-loyalty-modal.component.html',
+    styleUrl: './delete-loyalty-modal.component.scss'
 })
 export class DeleteLoyaltyModalComponent {
   @Input() selectedItems: { ids: string[] } = { ids: [] }; // to receive the object

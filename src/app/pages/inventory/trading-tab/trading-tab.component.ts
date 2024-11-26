@@ -14,20 +14,19 @@ import { LowStockModalComponent } from "./modals/low-stock-modal/low-stock-modal
 import { DeleteItemsModalComponent } from "./modals/delete-items-modal/delete-items-modal.component";
 
 @Component({
-  selector: 'app-trading-tab',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ToastComponent,
-    FormsModule,
-    AdjustQuantityModalComponent,
-    ManageTradingModalComponent,
-    LowStockModalComponent,
-    DeleteItemsModalComponent
-],
-  templateUrl: './trading-tab.component.html',
-  styleUrl: './trading-tab.component.scss'
+    selector: 'app-trading-tab',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ToastComponent,
+        FormsModule,
+        AdjustQuantityModalComponent,
+        ManageTradingModalComponent,
+        LowStockModalComponent,
+        DeleteItemsModalComponent
+    ],
+    templateUrl: './trading-tab.component.html',
+    styleUrl: './trading-tab.component.scss'
 })
 export class TradingTabComponent {
   paginatedData: TradingItem[] = [];  // Store paginated data
