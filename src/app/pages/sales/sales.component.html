@@ -1,1 +1,117 @@
-<p>sales works!</p>
+<div class="d-flex flex-column gap-3">
+  <div class="d-flex justify-content-between">
+    <h1><b><i>SALES REPORT</i></b></h1>
+  </div>
+  <div class="row g-3 mb-2">
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ dailySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
+          <h6 class="card-subtitle mb-2">Daily Sales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ weeklySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
+          <h6 class="card-subtitle mb-2">Weekly Sales - Past 7 days</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ monthlySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
+          <h6 class="card-subtitle mb-2">Monthly Sales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ yearlySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
+          <h6 class="card-subtitle mb-2">Yearly Sales</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card text-white bg-dark">
+    <div class="card-body">
+      <div class="d-flex gap-3">
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Date</label>
+          <select class="form-select" id="inputGroupSelect01" [(ngModel)]="selectedDate">
+            <option [value]="null" selected>Choose...</option>
+            <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Week</label>
+          <select class="form-select" id="weekSelector" [(ngModel)]="selectedWeek">
+            <option [value]="null" selected>Choose a week...</option>
+            <option *ngFor="let week of weeks" [value]="week.value">{{ week.label }}</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Month</label>
+          <select class="form-select" id="monthSelector" [(ngModel)]="selectedMonth">
+            <option [value]="null" selected>Choose a month...</option>
+            <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Year</label>
+          <select class="form-select" id="yearSelector" [(ngModel)]="selectedYear">
+            <option [value]="null" selected>Choose a year...</option>
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+        <div class="d-flex gap-3 mb-3">
+          <button type="submit" class="btn btn-danger w-100" (click)="fetchSales()">Filter</button>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="onReset()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z" />
+              <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466" />
+            </svg>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="exportReportsToExcel()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download"
+              viewBox="0 0 16 16">
+              <path
+                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+              <path
+                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Table Responsive Wrapper -->
+      <div class="table-responsive">
+        <table class="table table-striped table-secondary table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="text-nowrap">Date</th>
+              <th scope="col" class="text-nowrap">Invoice No.</th>
+              <th scope="col" class="text-nowrap">Item/Service</th>
+              <th scope="col" class="text-nowrap">Price</th>
+              <th scope="col" class="text-nowrap">Quantity</th>
+              <th scope="col" class="text-nowrap">Sub total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of reports; let i = index">
+              <td>{{ item.dateIssued | date }}</td>
+              <td>{{ item.transactionNumber }}</td>
+              <td>{{ item.cartItemName }}</td>
+              <td>{{ item.cartItemPrice | currency:'PHP':'symbol':'1.2-2' }}</td>
+              <td>{{ item.cartItemQuantity | currency:'PHP':'symbol':'1.2-2' }}</td>
+              <td>{{ item.cartItemSubTotal | currency:'PHP':'symbol':'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

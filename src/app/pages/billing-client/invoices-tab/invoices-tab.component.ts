@@ -5,13 +5,16 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastService } from '../../../core/services/toast.service';
 import { Pagination } from '../../../shared/models/paginated-result.model';
 import { Sale } from '../../../shared/models/sale.model';
+import * as bootstrap from 'bootstrap';
+import { UpdatePaidRecurringModalComponent } from "./modals/update-paid-recurring-modal/update-paid-recurring-modal.component";
 
 @Component({
   selector: 'app-invoices-tab',
   standalone: true,
   imports: [
-    CommonModule
-  ],
+    CommonModule,
+    UpdatePaidRecurringModalComponent
+],
   templateUrl: './invoices-tab.component.html',
   styleUrl: './invoices-tab.component.scss'
 })
@@ -77,6 +80,37 @@ export class InvoicesTabComponent {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.fetchPaginatedData(page);
+    }
+  }
+
+  onEditPaidRecurring(item: Sale) {
+    this.selectedItem = item;
+
+    const modalElement = document.getElementById('updatePaidRecurringModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID 'updatePaidRecurringModal' not found.");
+    }
+  }
+
+  onSave(item: any) {
+    // Handle saving the updated data (e.g., make an API call)
+    console.log('Updateddata:', item);
+
+    // Close the modal after saving data
+    const modalElement = document.getElementById('updatePaidRecurringModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide(); // Safely hide the modal if an instance exists
+        this.fetchPaginatedData(this.currentPage);
+      } else {
+        console.error("No Bootstrap modal instance found for 'updatePaidRecurringModal'.");
+      }
+    } else {
+      console.error("Modal element with ID 'updatePaidRecurringModal' not found.");
     }
   }
 }

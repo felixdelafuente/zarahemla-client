@@ -1,0 +1,39 @@
+<div class="modal fade" id="updatePaidRecurringModal" tabindex="-1" aria-labelledby="updatePaidRecurringModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updatePaidRecurringModalLabel">Settle Transaction</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3" style="max-height: 70vh; overflow-y: auto;">
+        <div class="">
+          <p>Would you like to mark this transaction paid/unpaid?</p>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="flexRadioDefault3" [value]="true" [(ngModel)]="paidInput">
+              <label class="form-check-label" for="flexRadioDefault3">
+                Paid
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="flexRadioDefault4" [value]="false" [(ngModel)]="paidInput">
+              <label class="form-check-label" for="flexRadioDefault4">
+                Unpaid
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+            [(ngModel)]="recurringInput">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Recurring for next month</label>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-danger" (click)="onSubmit()">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-toast></app-toast>

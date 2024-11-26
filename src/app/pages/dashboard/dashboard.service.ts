@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
-export class SalesService {
+export class DashboardService {
   private baseUrl = `${environment.baseApiUrl}/sales`; // Base API URL for discount endpoints
 
   constructor(private http: HttpClient) { }

@@ -28,4 +28,16 @@ export class InvoicesTabService {
       observe: 'response', // Include response headers
     });
   }
+
+  /**
+   * Changes the paid and recurring status of a transaction.
+   * 
+   * @param id The ID of the sale item to modify
+   * @param paid The boolean to mark transaction as paid
+   * @param recurring The boolean to mark transaction as recurring
+   * @returns An Observable of the updated trading item
+   */
+  modifyPaidRecurring(id: string, paid: boolean, recurring: boolean): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/${id}/paid-recurring`, { paid, recurring });
+  }
 }
