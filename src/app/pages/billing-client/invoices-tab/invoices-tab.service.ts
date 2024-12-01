@@ -17,10 +17,14 @@ export class InvoicesTabService {
    * @param searchInput - Optional search input
    * @returns Observable with paginated data
    */
-  getPaginated(pageNumber?: number): Observable<HttpResponse<any>> {
+  getPaginated(pageNumber?: number, paid?: boolean): Observable<HttpResponse<any>> {
     let params = new HttpParams();
     if (pageNumber !== undefined) {
       params = params.set('pageNumber', pageNumber.toString());
+    }
+
+    if (paid !== undefined) {
+      params = params.set('paid', paid);
     }
 
     return this.http.get<any>(`${this.baseUrl}/paginate`, {
