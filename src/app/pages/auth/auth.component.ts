@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from './auth.service';
 import { Credentials } from '../../shared/models/credentials.model';
 import { Router } from '@angular/router';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-auth',
@@ -24,7 +25,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     // Initialize the reactive form with validation
     this.authForm = this.fb.group({
@@ -57,10 +59,18 @@ export class AuthComponent implements OnInit {
         error: (err: any) => {
           console.error('Login failed:', err);
           this.errorMessage = 'Invalid username or password';
+          this.toastService.show(
+          this.errorMessage,
+          'danger'
+        );
         }
       });
     } else {
       this.errorMessage = 'Please fill in all required fields.';
+      this.toastService.show(
+          this.errorMessage,
+          'danger'
+        );
     }
   }
 
@@ -71,6 +81,10 @@ export class AuthComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.currentUser = this.authService.getCurrentUser();
       console.log('User already logged in:', this.currentUser);
+      this.toastService.show(
+          "User is already logged in.",
+          'success'
+        );
     }
   }
 }

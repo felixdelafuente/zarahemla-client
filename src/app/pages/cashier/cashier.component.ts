@@ -22,7 +22,6 @@ import * as bootstrap from 'bootstrap';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     ToastComponent,
     FormsModule,
     ConfirmationModalComponent
@@ -30,9 +29,7 @@ import * as bootstrap from 'bootstrap';
   templateUrl: './cashier.component.html',
   styleUrl: './cashier.component.scss'
 })
-export class CashierComponent {
-  salesForm: FormGroup;
-  
+export class CashierComponent {  
   filterList: { id: string, category: string, name: string, sellingPrice: number }[] = [];
   cartViewList: {
     item: string,
@@ -45,63 +42,66 @@ export class CashierComponent {
 
   isLoading = false;
 
-  searchQuery = new FormControl('');
-  quantityControl = new FormControl(0);
+  searchQuery = "";
+  quantityControl = 0;
   currentPage: number = 1;
 
   selectedItem: { id: string, category: string, name: string, sellingPrice: number } | undefined;
 
-  clientQuery = new FormControl('');
+  clientQuery = "";
   clientResult: Client[] = [];
   selectedClient: Client | undefined;
 
   discount: Discount | undefined;
 
-  paymentReceived = new FormControl(0);
-  change = new FormControl(0);
+  paymentReceived = 0;
+  change = 0;
 
   checkoutCart: NewSale | undefined;
 
+  transactionNumberField: number = 0;
+  branchField: string = "";
+  clientField: string = "";
+  cartField: Cart[] = [];
+  discountField: number = 0;
+  totalPriceField: number = 0;
+  paidField: boolean = true;
+  dateIssuedField: Date = new Date();
+  recurringField: boolean = false;
+
   constructor(
-    private fb: FormBuilder,
     private tradingService: TradingTabService,
     private serviceService: ServicesTabService,
     private clientService: ClientsTabService,
     private discountService: LoyaltyTabService,
     private toastService: ToastService
   ) {
-    this.salesForm = this.fb.group({
-      branch: ['', [Validators.required]],
-      client: ['', [Validators.required]],
-      cart: [[], [Validators.required]],
-      discount: [0, [Validators.required]],
-      totalPrice: [0, [Validators.required]],
-      paid: [true, [Validators.required]],
-      dateIssued: [Date.now(), [Validators.required]],
-      recurring: [false, [Validators.required]],
-    });
   }
 
-  resetForm() {
-    this.checkoutCart = undefined;
-    this.cartData = [];
+  resetForm(): void {
+    // this.transactionNumberField = 0;
+    // this.branchField = "";
+    // this.clientField = "";
+    this.cartField = [];
+    // this.discountField = 0;
+    // this.totalPriceField = 0;
+    // this.paidField = true;
+    // this.dateIssuedField= new Date();
+    // this.recurringField = false;
+
     this.cartViewList = [];
-    this.selectedItem = undefined;
-    this.searchQuery = new FormControl('');   
-    this.quantityControl = new FormControl(0);
-    this.salesForm.get('client')?.patchValue('');
-    this.salesForm.get('cart')?.patchValue([]);
-    this.salesForm.get('discount')?.patchValue(0);
-    this.salesForm.get('totalPrice')?.patchValue(0);
-    this.salesForm.get('paid')?.patchValue(true);
-    this.salesForm.get('recurring')?.patchValue(false);
+    // this.selectedClient = undefined;
+
+    this.totalPriceField = 0;
   }
 
-  fetchPaginatedData(page: number, searchQuery: FormControl) {
-    const query: string = searchQuery.value || "";
+  
+
+  fetchPaginatedData(page: number, searchQuery: string) {
+    const query: string = searchQuery || "";
     console.log("query", query);
-    if (this.salesForm.value.branch == "Tradings") {
-      console.log("branch selected", this.salesForm.value.branch);
+    if (this.branchField== "Tradings") {
+      console.log("branch selected", this.branchField);
       this.tradingService.getPaginated(page, query).subscribe({
       next: (response) => {
           // Extract body data
@@ -119,8 +119,8 @@ export class CashierComponent {
         console.error('Error fetching paginated data', err);
       }
     });
-    } else if (this.salesForm.value.branch == "Services") {
-      console.log("branch selected", this.salesForm.value.branch);
+    } else if (this.branchField == "Services") {
+      console.log("branch selected", this.branchField);
       this.serviceService.getPaginated(page, query).subscribe({
       next: (response) => {
           // Extract body data
@@ -139,12 +139,12 @@ export class CashierComponent {
       }
     });
     } else {
-      console.log("no branch selected", this.salesForm.value.branch);
+      console.log("no branch selected", this.branchField);
     }
   }
 
   selectItem(item: { id: string, category: string, name: string, sellingPrice: number }) {
-    this.searchQuery = new FormControl('');
+    this.searchQuery = "";
     this.selectedItem = item;
     this.filterList = [];
   }
@@ -155,22 +155,26 @@ export class CashierComponent {
       item: this.selectedItem.id,
       name: this.selectedItem.name,
       itemPrice: this.selectedItem.sellingPrice,
-      quantity: this.quantityControl.value ?? 0,
-      subTotal: this.selectedItem.sellingPrice * (this.quantityControl.value ?? 0)
+      quantity: this.quantityControl ?? 0,
+      subTotal: this.selectedItem.sellingPrice * (this.quantityControl ?? 0)
       });
 
-      this.salesForm.value.totalPrice += this.selectedItem.sellingPrice * (this.quantityControl.value ?? 0);
+      this.totalPriceField += this.selectedItem.sellingPrice * (this.quantityControl ?? 0);
     
       this.selectedItem = undefined;
-      this.quantityControl = new FormControl(0);
+      this.quantityControl = 0;
     } else {
       console.log("no selected Item");
+      this.toastService.show(
+          "No selected item.",
+          'warning'
+        );
     }
     
   }
 
-  fetchClients(page: number, clientQuery: FormControl) {
-    const query: string = clientQuery.value || "";
+  fetchClients(page: number, clientQuery: string) {
+    const query: string = clientQuery || "";
 
     this.clientService.getPaginated(page, query).subscribe({
       next: (response) => {
@@ -184,18 +188,19 @@ export class CashierComponent {
   }
 
   selectClient(client: Client) {
-    this.salesForm.value.discount = 0;
-    this.clientQuery = new FormControl('');
+    this.discountField = 0;
+    this.clientQuery = "";
     this.selectedClient = client;
-    this.salesForm.value.client = client._id;
+    this.clientField = client._id;
     this.clientResult = [];
+    console.log('Selected client', this.clientField);
 
     this.discountService.getPaginated(this.currentPage, undefined, client._id).subscribe({
       next: (response) => {
           // Extract body data
         this.discount = response.body[0];
-        this.salesForm.value.discount = this.discount;
-        this.salesForm.value.totalPrice -= this.discount?.value ?? 0;
+        this.discountField = this.discount?.value ?? 0;
+        this.totalPriceField -= this.discount?.value ?? 0;
       },
       error: (err) => {
         console.error('Error fetching paginated data', err);
@@ -204,11 +209,9 @@ export class CashierComponent {
   }
 
   calculateChange() {
-    const payment: number = Number(this.paymentReceived.value);
-    const totalPrice: number = Number(this.salesForm.value.totalPrice);
-    if (totalPrice) {
-      this.change.setValue(payment - totalPrice);
-    }
+    const payment = Number(this.paymentReceived || 0);
+    const totalPrice = Number(this.totalPriceField || 0);
+    this.change = payment - totalPrice
   }
 
   getUniqueTransactionNumber(): number {
@@ -225,7 +228,7 @@ export class CashierComponent {
 
   // Convert the string to a number
   return Number(transactionNumberString);
-}
+  }
 
   checkout() {
     this.cartViewList.forEach((item: {
@@ -244,18 +247,24 @@ export class CashierComponent {
 
     const transactionNumber: number = this.getUniqueTransactionNumber();
 
-    const isRecurring: boolean = this.salesForm.value.recurring;
+    const isRecurring: boolean = this.recurringField;
+    console.log("client", this.selectedClient?._id);
+
+    this.transactionNumberField = transactionNumber;
+    this.cartField = this.cartData;
+    this.discountField = this.discount?.value ?? 0;
+
 
     this.checkoutCart = {
-      transactionNumber: transactionNumber,
-      branch: this.salesForm.value.branch,
-      client: this.salesForm.value.client,
-      cart: this.cartData,
-      discount: this.discount?.value ?? 0,
-      totalPrice: Number(this.salesForm.value.totalPrice),
+      transactionNumber: this.transactionNumberField,
+      branch: this.branchField,
+      client: this.clientField,
+      cart: this.cartField,
+      discount: this.discountField,
+      totalPrice: Number(this.totalPriceField),
       paid: !isRecurring,
       dateIssued: new Date(),
-      recurring: this.salesForm.value.recurring
+      recurring: this.recurringField
     };
 
     console.log("checkout", this.checkoutCart);
@@ -277,7 +286,7 @@ export class CashierComponent {
       if (modal) {
         modal.hide(); // Safely hide the modal if an instance exists
         this.resetForm();
-      } else {
+      } else { 
         console.error("No Bootstrap modal instance found for 'confirmCheckoutModal'.");
       }
     } else {
