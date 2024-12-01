@@ -52,6 +52,10 @@ export class CashierComponent {
   clientResult: Client[] = [];
   selectedClient: Client | undefined;
 
+  discountQuery = "";
+  discountResult: Discount[] = [];
+  selectedDiscount: Discount | undefined;
+
   discount: Discount | undefined;
 
   paymentReceived = 0;
@@ -74,7 +78,8 @@ export class CashierComponent {
     private serviceService: ServicesTabService,
     private clientService: ClientsTabService,
     private discountService: LoyaltyTabService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loyaltyService: LoyaltyTabService
   ) {
   }
 
@@ -200,18 +205,30 @@ export class CashierComponent {
     this.clientField = client._id;
     this.clientResult = [];
     console.log('Selected client', this.clientField);
+  }
 
-    this.discountService.getPaginated(this.currentPage, undefined, client._id).subscribe({
+  fetchDiscounts(page: number, discountQuery: string) {
+    const query: string = discountQuery || "";
+
+    this.loyaltyService.getPaginated(page, query, this.clientField).subscribe({
       next: (response) => {
           // Extract body data
-        this.discount = response.body[0];
-        this.discountField = this.discount?.value ?? 0;
-        this.totalPriceField -= this.discount?.value ?? 0;
+          this.discountResult = response.body;
       },
       error: (err) => {
         console.error('Error fetching paginated data', err);
       }
     });
+  }
+
+  selectDiscount(discount: Discount) {
+    this.discountField = 0;
+    this.discountQuery = "";
+    this.selectedDiscount = discount;
+    this.discountField = discount.value;
+    this.discountResult = [];
+    this.totalPriceField -= this.discountField ?? 0;
+    console.log('Selected client', this.totalPriceField);
   }
 
   calculateChange() {
@@ -258,7 +275,7 @@ export class CashierComponent {
 
     this.transactionNumberField = transactionNumber;
     this.cartField = this.cartData;
-    this.discountField = this.discount?.value ?? 0;
+    // this.discountField = this.discount?.value ?? 0;
 
 
     this.checkoutCart = {

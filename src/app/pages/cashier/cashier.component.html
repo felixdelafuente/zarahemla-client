@@ -138,11 +138,51 @@
         </ul>
         }
       </div>
-      @if (discount) {
+      <div class="d-flex flex-column">
         <div>
-          <p>Loyalty Number: {{ discount.loyaltyNumber }}</p>
+          <p class="mb-1">Discount</p>
+          <!-- Search Bar -->
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type a loyalty number" aria-label="Type a loyalty number"
+              [(ngModel)]="searchQuery">
+            <button type="button" class="btn btn-danger btn-sm" (click)="fetchDiscounts(currentPage, searchQuery)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                viewBox="0 0 16 16">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+              </svg>
+            </button>
+          </div>
         </div>
-      }
+        <div class="position-relative">
+          <ul id="hover-list" class="list-group z-3 position-absolute w-100">
+            <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let item of discountResult">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Loyalty No.: {{ item.loyaltyNumber }}</div>
+                {{ item.value | currency:'PHP':'symbol':'1.2-2' }}
+              </div>
+              <button type="button" class="btn btn-success btn-sm" (click)="selectDiscount(item)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+        @if (selectedDiscount) {
+        <ul class="list-group mt-3">
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">{{ selectedDiscount.loyaltyNumber }}
+              </div>
+              {{ selectedDiscount.value }}
+            </div>
+          </li>
+        </ul>
+        }
+      </div>
       <div>
         <p class="mb-1">Payment Type</p>
         <div class="d-flex gap-3">

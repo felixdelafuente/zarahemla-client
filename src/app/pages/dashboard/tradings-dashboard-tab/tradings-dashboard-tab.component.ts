@@ -17,6 +17,7 @@ import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-tradings-dashboard-tab',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
