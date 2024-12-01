@@ -7,12 +7,14 @@ import { Pagination } from '../../../shared/models/paginated-result.model';
 import { Sale } from '../../../shared/models/sale.model';
 import * as bootstrap from 'bootstrap';
 import { UpdatePaidRecurringModalComponent } from "./modals/update-paid-recurring-modal/update-paid-recurring-modal.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-invoices-tab',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     UpdatePaidRecurringModalComponent
 ],
   templateUrl: './invoices-tab.component.html',
@@ -30,10 +32,13 @@ export class InvoicesTabComponent {
 
   selectedItem: any;
 
-  isLow: boolean = false;
+  isOverdue: boolean = false;
   lowStocks: Sale[] = [];
 
   clientId: string = "";
+
+  filterField: string = "All";
+  isPaid: boolean | undefined = undefined;
 
   constructor(
     private service: InvoicesTabService,
@@ -52,28 +57,73 @@ export class InvoicesTabComponent {
     }
   }
 
-  fetchPaginatedData(page: number) {
-    this.service.getPaginated(page).subscribe({
-      next: (response) => {
-        const paginationHeader = response.headers.get('Pagination');
-        if (paginationHeader) {
-          const pagination: Pagination = JSON.parse(paginationHeader);
-          this.currentPage = pagination.currentPage;
-          this.totalPages = Math.ceil(pagination.totalItems / this.pageSize);
-          this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+  fetchPaginatedData(page: number, paid?: string) {
+    this.paginatedData = [];
+    console.log("paid", paid);
+    if (paid == "Paid") {
+      this.isPaid = true;
+    } else if (paid == "Unpaid") {
+      this.isPaid = false;
+    } else {
+      this.isPaid = undefined;
+    }
+    console.log("bool", this.isPaid);
+    if (this.isPaid !== undefined) {
+      this.service.getPaginated(page, this.isPaid).subscribe({
+        next: (response) => {
+          const paginationHeader = response.headers.get('Pagination');
+          if (paginationHeader) {
+            const pagination: Pagination = JSON.parse(paginationHeader);
+            this.currentPage = pagination.currentPage;
+            this.totalPages = Math.ceil(pagination.totalItems / this.pageSize);
+            this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+          }
+
+          // Extract body data
+          this.paginatedData = response.body;
+          console.log('Response body:', this.paginatedData);
+          console.log('Pagination data:', paginationHeader);
+          console.log('All headers:', response.headers);
+
+        },
+        error: (err) => {
+          console.error('Error fetching paginated data', err);
         }
+      });
+    } else {
+      this.service.getPaginated(page).subscribe({
+        next: (response) => {
+          const paginationHeader = response.headers.get('Pagination');
+          if (paginationHeader) {
+            const pagination: Pagination = JSON.parse(paginationHeader);
+            this.currentPage = pagination.currentPage;
+            this.totalPages = Math.ceil(pagination.totalItems / this.pageSize);
+            this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+          }
 
-        // Extract body data
-        this.paginatedData = response.body;
-        console.log('Response body:', this.paginatedData);
-        console.log('Pagination data:', paginationHeader);
-        console.log('All headers:', response.headers);
+          // Extract body data
+          this.paginatedData = response.body;
+          console.log('Response body:', this.paginatedData);
+          console.log('Pagination data:', paginationHeader);
+          console.log('All headers:', response.headers);
 
-      },
-      error: (err) => {
-        console.error('Error fetching paginated data', err);
-      }
-    });
+        },
+        error: (err) => {
+          console.error('Error fetching paginated data', err);
+        }
+      });
+    }
+    
+  }
+
+  seeDuePayment() {
+    const modalElement = document.getElementById('overdueModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); // Manually show the modal
+    } else {
+      console.error("Modal element with ID 'overdueModal' not found.");
+    }
   }
 
   changePage(page: number): void {

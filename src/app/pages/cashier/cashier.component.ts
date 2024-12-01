@@ -60,7 +60,7 @@ export class CashierComponent {
   checkoutCart: NewSale | undefined;
 
   transactionNumberField: number = 0;
-  branchField: string = "";
+  branchField: string = "Choose...";
   clientField: string = "";
   cartField: Cart[] = [];
   discountField: number = 0;

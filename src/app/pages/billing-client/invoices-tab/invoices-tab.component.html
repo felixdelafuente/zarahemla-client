@@ -1,5 +1,34 @@
 <div class="card text-white bg-dark">
   <div class="card-body">
+    <div class="d-flex mb-3 justify-content-between">
+      <div>
+        @if (isOverdue) {
+        <button type="button" class="btn btn-danger position-relative w-100 w-md-auto" (click)="seeDuePayment()">
+          DUE&nbsp;PAYMENT
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black">
+            {{ lowStocks.length }}
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </button>
+        } @else {
+        <button type="button" class="btn btn-danger w-100 w-md-auto" disabled>DUE&nbsp;PAYMENT</button>
+          }
+      </div>
+      <div class="d-flex gap-3">
+        <div class="input-group mb-3">
+        <select class="form-select" id="filterField" 
+        [(ngModel)]="filterField">
+          <option selected value="All">All</option>
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+        </div>
+        <div>
+          <button type="button" class="btn btn-danger w-100 w-md-auto" (click)="fetchPaginatedData(currentPage, filterField)">Filter</button>
+        </div>
+        
+      </div>
+    </div>
     <!-- Table Responsive Wrapper -->
     <div class="table-responsive">
       <table class="table table-striped table-secondary table-hover">
