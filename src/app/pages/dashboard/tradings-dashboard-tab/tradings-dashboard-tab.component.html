@@ -1,0 +1,87 @@
+<div class="d-flex flex-column gap-3">
+  <div class="row g-3 mb-2">
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ lowStocks.length }}</h2>
+          <h6 class="card-subtitle mb-2">Low Stocks</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ tradings.length }}</h2>
+          <h6 class="card-subtitle mb-2">Inventory Items</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ monthlySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
+          <h6 class="card-subtitle mb-2">Monthly Sales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <h2 class="card-title">{{ yearlySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
+          <h6 class="card-subtitle mb-2">Yearly Sales</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card text-white bg-dark">
+    <div class="card-body">
+      <h2>Sales per Month for {{ selectedYear }}</h2>
+      <canvas baseChart class="p-5" [data]="chartData" [options]="chartOptions" [type]="'line'">
+      </canvas>
+    </div>
+  </div>
+  <div class="card text-white bg-dark">
+    <div class="card-body">
+      <div class="d-flex gap-3">
+        <div>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Monthly Sales</label>
+            <select class="form-select" id="monthSelector" [(ngModel)]="selectedMonth">
+              <option [value]="null" selected>Choose a month...</option>
+              <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3 mb-3">
+          <button type="submit" class="btn btn-danger w-100" (click)="fetchSales()">Filter</button>
+        </div>
+      </div>
+      <!-- Table Responsive Wrapper -->
+      <div class="table-responsive">
+        <table class="table table-striped table-secondary table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="text-nowrap">Date</th>
+              <th scope="col" class="text-nowrap">Invoice No.</th>
+              <th scope="col" class="text-nowrap">Item/Service</th>
+              <th scope="col" class="text-nowrap">Price</th>
+              <th scope="col" class="text-nowrap">Quantity</th>
+              <th scope="col" class="text-nowrap">Sub total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of tableData; let i = index">
+              <td>{{ item.dateIssued | date }}</td>
+              <td>{{ item.transactionNumber }}</td>
+              <td>{{ item.cartItemName }}</td>
+              <td>{{ item.cartItemPrice | currency:'PHP':'symbol':'1.2-2' }}</td>
+              <td>{{ item.cartItemQuantity | currency:'PHP':'symbol':'1.2-2' }}</td>
+              <td>{{ item.cartItemSubTotal | currency:'PHP':'symbol':'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
