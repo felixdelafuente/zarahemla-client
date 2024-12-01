@@ -150,7 +150,13 @@ export class CashierComponent {
   }
 
   addToCart() {
-    if (this.selectedItem != undefined) {
+    if (this.quantityControl <= 0) {
+      this.toastService.show(
+          "Quantity must be more than 0.",
+          'warning'
+        );
+    } else {
+      if (this.selectedItem != undefined) {
       this.cartViewList.push({
       item: this.selectedItem.id,
       name: this.selectedItem.name,
@@ -170,7 +176,7 @@ export class CashierComponent {
           'warning'
         );
     }
-    
+    }
   }
 
   fetchClients(page: number, clientQuery: string) {
