@@ -6,7 +6,7 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 import { NewSale } from '../../../../shared/models/new-sale.model';
 import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable'
+import autoTable from 'jspdf-autotable';
 import { ClientsTabService } from '../../../billing-client/clients-tab/clients-tab.service';
 import { Client } from '../../../../shared/models/client.model';
 import { Service } from '../../../../shared/models/service.model';
