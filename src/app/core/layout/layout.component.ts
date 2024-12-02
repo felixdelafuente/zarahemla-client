@@ -5,6 +5,7 @@ import { HeaderComponent } from "./header/header.component";
 
 @Component({
     selector: 'app-layout',
+    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

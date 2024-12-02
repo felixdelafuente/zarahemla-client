@@ -6,7 +6,8 @@ import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @Component({
-    selector: 'app-root',
+  selector: 'app-root',
+  standalone: true,
     imports: [
         CommonModule,
         RouterOutlet,
