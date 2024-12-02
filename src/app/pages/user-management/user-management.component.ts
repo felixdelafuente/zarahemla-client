@@ -12,7 +12,8 @@ import { ManageUserModalComponent } from "./modals/manage-user-modal/manage-user
 import * as bootstrap from 'bootstrap';
 
 @Component({
-    selector: 'app-user-management',
+  selector: 'app-user-management',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
 import { ServiceTabService } from './service-tab.service';
 
 @Component({
-    selector: 'app-service-tab',
+  selector: 'app-service-tab',
+  standalone: true,
     imports: [
         CommonModule
     ],

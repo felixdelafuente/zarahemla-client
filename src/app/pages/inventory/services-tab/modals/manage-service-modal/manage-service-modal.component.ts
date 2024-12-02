@@ -6,7 +6,8 @@ import { NewService } from '../../../../../shared/models/new-service.model';
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-    selector: 'app-manage-service-modal',
+  selector: 'app-manage-service-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule

@@ -8,7 +8,8 @@ import { PurchaseTabComponent } from "./purchase-tab/purchase-tab.component";
 import { ServiceTabComponent } from "./service-tab/service-tab.component";
 
 @Component({
-    selector: 'app-client',
+  selector: 'app-client',
+  standalone: true,
     imports: [
         CommonModule,
         LoyaltyTabComponent,

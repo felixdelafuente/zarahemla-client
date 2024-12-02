@@ -6,7 +6,8 @@ import { ServicesTabService } from '../../services-tab.service';
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-    selector: 'app-delete-services-modal',
+  selector: 'app-delete-services-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ToastComponent

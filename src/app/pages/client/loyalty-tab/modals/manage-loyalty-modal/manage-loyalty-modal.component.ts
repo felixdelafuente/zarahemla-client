@@ -6,7 +6,8 @@ import { ToastService } from '../../../../../core/services/toast.service';
 import { LoyaltyTabService } from '../../loyalty-tab.service';
 
 @Component({
-    selector: 'app-manage-loyalty-modal',
+  selector: 'app-manage-loyalty-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule

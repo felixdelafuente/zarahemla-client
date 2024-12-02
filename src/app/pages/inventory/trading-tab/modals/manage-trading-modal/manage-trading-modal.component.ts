@@ -7,7 +7,8 @@ import { TradingItem } from '../../../../../shared/models/trading-item.model';
 import { NewTradingItem } from '../../../../../shared/models/new-trading-item.model';
 
 @Component({
-    selector: 'app-manage-trading-modal',
+  selector: 'app-manage-trading-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule

@@ -14,7 +14,8 @@ import { LowStockModalComponent } from "./modals/low-stock-modal/low-stock-modal
 import { DeleteItemsModalComponent } from "./modals/delete-items-modal/delete-items-modal.component";
 
 @Component({
-    selector: 'app-trading-tab',
+  selector: 'app-trading-tab',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

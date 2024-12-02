@@ -6,7 +6,8 @@ import { UserManagementService } from '../../user-management.service';
 import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
-    selector: 'app-manage-user-modal',
+  selector: 'app-manage-user-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule

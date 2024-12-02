@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { ToastService } from '../../core/services/toast.service';
 
 @Component({
-    selector: 'app-auth',
+  selector: 'app-auth',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

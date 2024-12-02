@@ -12,7 +12,8 @@ import { ManageVehicleModalComponent } from "./modals/manage-vehicle-modal/manag
 import { DeleteVehicleModalComponent } from "./modals/delete-vehicle-modal/delete-vehicle-modal.component";
 
 @Component({
-    selector: 'app-vehicle-tab',
+  selector: 'app-vehicle-tab',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

@@ -8,7 +8,8 @@ import { NewSale } from '../../../../../shared/models/new-sale.model';
 import { CashierService } from '../../../../cashier/cashier.service';
 
 @Component({
-    selector: 'app-update-paid-recurring-modal',
+  selector: 'app-update-paid-recurring-modal',
+  standalone: true,
     imports: [
         CommonModule,
         FormsModule,

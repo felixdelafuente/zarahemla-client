@@ -13,7 +13,8 @@ import { Client } from '../../../shared/models/client.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'app-loyalty-tab',
+  selector: 'app-loyalty-tab',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

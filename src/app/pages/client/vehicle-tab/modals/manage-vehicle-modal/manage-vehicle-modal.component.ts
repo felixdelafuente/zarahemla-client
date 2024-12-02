@@ -6,7 +6,8 @@ import { ToastService } from '../../../../../core/services/toast.service';
 import { NewVehicle } from '../../../../../shared/models/new-vehicle.model';
 
 @Component({
-    selector: 'app-manage-vehicle-modal',
+  selector: 'app-manage-vehicle-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule

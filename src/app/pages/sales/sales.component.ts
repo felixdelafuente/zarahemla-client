@@ -15,7 +15,8 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 @Component({
-    selector: 'app-sales',
+  selector: 'app-sales',
+  standalone: true,
     imports: [
         CommonModule,
         FormsModule

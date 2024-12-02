@@ -7,7 +7,8 @@ import { TradingTabService } from '../../trading-tab.service';
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-    selector: 'app-adjust-quantity-modal',
+  selector: 'app-adjust-quantity-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

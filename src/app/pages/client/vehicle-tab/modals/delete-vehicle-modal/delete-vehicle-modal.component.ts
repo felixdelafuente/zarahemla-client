@@ -6,7 +6,8 @@ import { ToastService } from '../../../../../core/services/toast.service';
 import { ToastComponent } from '../../../../../shared/components/toast/toast.component';
 
 @Component({
-    selector: 'app-delete-vehicle-modal',
+  selector: 'app-delete-vehicle-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ToastComponent

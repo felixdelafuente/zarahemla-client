@@ -5,6 +5,7 @@ import { TradingTabComponent } from "./trading-tab/trading-tab.component";
 
 @Component({
     selector: 'app-inventory',
+    standalone: true,
     imports: [CommonModule, ServicesTabComponent, TradingTabComponent],
     templateUrl: './inventory.component.html',
     styleUrl: './inventory.component.scss'

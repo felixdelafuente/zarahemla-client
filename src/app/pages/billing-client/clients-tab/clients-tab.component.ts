@@ -12,7 +12,8 @@ import { ManageClientModalComponent } from "./modals/manage-client-modal/manage-
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-clients-tab',
+  selector: 'app-clients-tab',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

@@ -11,7 +11,8 @@ import { ManageServiceModalComponent } from "./modals/manage-service-modal/manag
 import { DeleteServicesModalComponent } from "./modals/delete-services-modal/delete-services-modal.component";
 
 @Component({
-    selector: 'app-services-tab',
+  selector: 'app-services-tab',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

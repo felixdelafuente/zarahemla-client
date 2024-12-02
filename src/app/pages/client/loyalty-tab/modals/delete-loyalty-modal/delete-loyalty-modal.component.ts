@@ -7,7 +7,8 @@ import { ServicesTabService } from '../../../../inventory/services-tab/services-
 import { LoyaltyTabService } from '../../loyalty-tab.service';
 
 @Component({
-    selector: 'app-delete-loyalty-modal',
+  selector: 'app-delete-loyalty-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ToastComponent

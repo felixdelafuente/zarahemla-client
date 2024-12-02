@@ -6,7 +6,8 @@ import { ToastComponent } from "../../../../../shared/components/toast/toast.com
 import * as bootstrap from 'bootstrap';
 
 @Component({
-    selector: 'app-delete-items-modal',
+  selector: 'app-delete-items-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ToastComponent

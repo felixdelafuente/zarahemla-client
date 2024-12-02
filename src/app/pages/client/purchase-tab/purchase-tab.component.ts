@@ -7,7 +7,8 @@ import { Pagination } from '../../../shared/models/paginated-result.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-purchase-tab',
+  selector: 'app-purchase-tab',
+  standalone: true,
     imports: [
         CommonModule,
     ],

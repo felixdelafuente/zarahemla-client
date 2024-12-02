@@ -7,7 +7,8 @@ import * as bootstrap from 'bootstrap';
 import { AdjustQuantityModalComponent } from "../adjust-quantity-modal/adjust-quantity-modal.component";
 
 @Component({
-    selector: 'app-low-stock-modal',
+  selector: 'app-low-stock-modal',
+  standalone: true,
     imports: [
         CommonModule,
     ],

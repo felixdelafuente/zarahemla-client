@@ -6,7 +6,8 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
-    selector: 'app-manage-client-modal',
+  selector: 'app-manage-client-modal',
+  standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule
