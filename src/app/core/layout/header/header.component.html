@@ -1,8 +1,12 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="images/zarahemla-logo.png" height="36" alt="Logo">
-    </a>
+    @if (currentUrl && !currentUrl.includes("dashboard")) {
+      <a class="navbar-brand" href="#">
+        <img src="images/zarahemla-logo.png" height="36" alt="Logo">
+      </a>
+    } @else {
+      <div></div>
+    }
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
       aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,27 +19,11 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="management/dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="management/inventory">Inventory</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="management/sales">Sales Report</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="management/billing-client">Billing & Client</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="management/users">User Management</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pos/cashier">Cashier</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Logout</a>
-          </li>
+          @for (item of filteredMenuItems; track $index) {
+            <li class="nav-item">
+              <a class="nav-link" [href]="item.link">{{ item.title }}</a>
+            </li>
+          }
         </ul>
       </div>
     </div>

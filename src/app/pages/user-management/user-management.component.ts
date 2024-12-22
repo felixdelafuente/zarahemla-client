@@ -26,8 +26,8 @@ import * as bootstrap from 'bootstrap';
 export class UserManagementComponent {
   addUserForm: FormGroup;
 
-  trading = ["Dashboard Page", "Inventory Page", "Sales Report Page", "User Management", "Cashier Page"];
-  services = ["Dashboard Page", "Inventory Page", "Sales Report Page", "User Management", "Cashier Page"];
+  trading = ["Dashboard Page", "Inventory Page", "Sales Report Page", "Billing & Client Page", "User Management", "Cashier Page"];
+  services = ["Dashboard Page", "Inventory Page", "Sales Report Page", "Billing & Client Page", "User Management", "Cashier Page"];
 
   selectedTradings: string[] = [];
   selectedServices: string[] = [];

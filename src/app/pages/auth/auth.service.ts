@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { User } from '../../shared/models/user.model';
-import { Observable } from 'rxjs';
+import { Token, User } from '../../shared/models/user.model';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Credentials } from '../../shared/models/credentials.model';
 
 @Injectable({
@@ -10,10 +10,19 @@ import { Credentials } from '../../shared/models/credentials.model';
 })
 export class AuthService {
   private baseUrl = `${environment.baseApiUrl}/users`; // Base API URL for user endpoints
-  private tokenKey = `${environment.baseApiUrl}`
-  user: User | undefined = undefined;
+  private tokenKey = `authToken`
+  private currentUserSubject = new BehaviorSubject<Token | undefined>(undefined);
+  user: Token | undefined = undefined;
 
-  constructor(private http: HttpClient) {}
+  currentUser$ = this.currentUserSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+    // Check for existing user on service initialization
+    const existingUser = this.getCurrentUser();
+    if (existingUser) {
+      this.currentUserSubject.next(existingUser);
+    }
+  }
 
   /**
    * Login the user
@@ -22,23 +31,18 @@ export class AuthService {
    * @returns Observable of login response
    */
   login(user: Credentials): Observable<any> {
-    const loginData = user;
-
-    return new Observable((observer) => {
-      this.http.post<any>(`${this.baseUrl}/authenticate`, loginData).subscribe({
-        next: (response) => {
-          // Save token in sessionStorage
-          const token = JSON.stringify({
-            user: response.user,
-            token: response.token,
-          });
-          sessionStorage.setItem(this.tokenKey, token);
-          observer.next(response);
-          observer.complete();
-        },
-        error: (err) => console.log(err),
-      });
-    });
+    return this.http.post<any>(`${this.baseUrl}/authenticate`, user).pipe(
+      tap(response => {
+        // Save token in sessionStorage
+        const token = JSON.stringify(response);
+        sessionStorage.setItem(this.tokenKey, token);
+        
+        // Get user from response and update subject
+        const loggedInUser = response.user;
+        console.log('Setting logged in user:', loggedInUser);
+        this.currentUserSubject.next(loggedInUser);
+      })
+    );
   }
 
   /**
@@ -53,11 +57,14 @@ export class AuthService {
    * Get the current user information from the stored token
    * @returns User object if token exists, otherwise undefined
    */
-  getCurrentUser(): User | undefined {
+  getCurrentUser(): Token | undefined {
     const tokenData = sessionStorage.getItem(this.tokenKey);
+    console.log('get token:', tokenData);
     if (tokenData) {
-      const parsedData = JSON.parse(tokenData);
-      return parsedData.user;
+      console.log('isTokenData:', tokenData);
+      const parsedData: Token = JSON.parse(tokenData);
+      console.log('getCurrentUser returning:', parsedData);
+      return parsedData;
     }
     return undefined;
   }
