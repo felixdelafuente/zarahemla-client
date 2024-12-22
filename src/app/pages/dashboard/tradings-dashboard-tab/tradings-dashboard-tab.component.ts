@@ -120,6 +120,7 @@ export class TradingsDashboardTabComponent {
     this.fetchTradings();
     this.fetchServices();
     this.fetchSales();
+    this.fetchLowStocks();
   }
 
   ngAfterViewInit(): void {
@@ -200,7 +201,7 @@ export class TradingsDashboardTabComponent {
       next: (response) => {
         // Extract body data
         this.lowStocks = response;
-        console.log('Response body:', this.lowStocks);
+        console.log('lowstocks Response body:', this.lowStocks);
       },
       error: (err) => {
         console.error('Error fetching paginated data', err);
