@@ -49,6 +49,10 @@ export class SalesComponent {
   monthlySales: number = 0;
   yearlySales: number = 0;
 
+  yearToday: number = 0;
+
+  totalSales: number = 0;
+
   constructor(
     private salesService: SalesService,
     private tradingService: TradingTabService,
@@ -182,6 +186,7 @@ fetchSales() {
 
       // Transform the filtered sales into sale items
       this.transformSalesToSaleItems(filteredSales);
+      this.totalSales = filteredSales.reduce((sum, sale) => sum + sale.totalPrice, 0);
       this.calculateTotalSales(sales);
     },
     error: (err) => {
@@ -291,6 +296,8 @@ fetchSales() {
     this.weeklySales = 0;
     this.monthlySales = 0;
     this.yearlySales = 0;
+
+    this.yearToday = today.getFullYear();
 
     sales.forEach((sale) => {
       const saleDate = new Date(sale.dateIssued);

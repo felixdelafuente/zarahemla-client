@@ -50,6 +50,8 @@ export class TradingsDashboardTabComponent {
   monthlySales: number = 0;
   yearlySales: number = 0;
 
+  yearToday: number = 0;
+
   // Chart.js data
   public chartData: ChartData<'line'> = {
     labels: [], // Months
@@ -435,6 +437,7 @@ export class TradingsDashboardTabComponent {
   calculateTotalSales(sales: Sale[]): void {
   // Ensure consistency by using filteredSales for both calculations
   const currentYear = new Date().getFullYear();
+  this.yearToday = currentYear;
   const filteredSales = sales.filter(sale => {
   const saleYear = new Date(sale.dateIssued).getFullYear();
   const matchesBranch = sale.branch === "Tradings";

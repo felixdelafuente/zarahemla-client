@@ -31,7 +31,7 @@
       <div class="card text-bg-dark">
         <div class="card-body">
           <h2 class="card-title">{{ yearlySales | currency:'PHP':'symbol':'1.2-2' }}</h2>
-          <h6 class="card-subtitle mb-2">Yearly Sales</h6>
+          <h6 class="card-subtitle mb-2">Year {{ yearToday }} Sales</h6>
         </div>
       </div>
     </div>
@@ -111,6 +111,9 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="d-flex justify-content-end">
+        <h3><b>Total Sales: {{ totalSales | currency:'PHP':'symbol':'1.2-2'}}</b></h3>
       </div>
     </div>
   </div>
