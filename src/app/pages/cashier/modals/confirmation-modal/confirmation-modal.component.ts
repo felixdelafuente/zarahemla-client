@@ -13,6 +13,7 @@ import { Service } from '../../../../shared/models/service.model';
 import { TradingItem } from '../../../../shared/models/trading-item.model';
 import { TradingTabService } from '../../../inventory/trading-tab/trading-tab.service';
 import { ServicesTabService } from '../../../inventory/services-tab/services-tab.service';
+import { Cart } from '../../../../shared/models/cart.model';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -62,6 +63,21 @@ export class ConfirmationModalComponent {
                 
                 if (this.clientResult && this.checkoutData) {
                   this.generateInvoice(this.checkoutData, this.clientResult); // Generate the invoice
+
+                  this.checkoutData.cart.forEach((item: Cart) => {
+                    this.tradingService.modifyQuantity(item.item, -item.quantity).subscribe({
+                      next: (data: any) => {
+                        this.toastService.show('Modified quantity successfully!', 'success');
+                    },
+                    error: (msg: any) => {
+                      console.log("error:", msg);
+                      this.toastService.show(
+                        'Failed to modify quantity. Please try again.',
+                        'danger'
+                      );
+                    },
+                  });
+                  });
                 }
               },
               error: (err) => {

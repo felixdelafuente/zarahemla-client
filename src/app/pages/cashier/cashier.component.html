@@ -99,8 +99,8 @@
           <!-- Search Bar -->
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Type a name" aria-label="Type a name"
-              [(ngModel)]="searchQuery">
-            <button type="button" class="btn btn-danger btn-sm" (click)="fetchClients(currentPage, searchQuery)">
+              [(ngModel)]="clientQuery">
+            <button type="button" class="btn btn-danger btn-sm" (click)="fetchClients(currentPage, clientQuery)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                 viewBox="0 0 16 16">
                 <path
@@ -144,8 +144,8 @@
           <!-- Search Bar -->
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Type a loyalty number" aria-label="Type a loyalty number"
-              [(ngModel)]="searchQuery">
-            <button type="button" class="btn btn-danger btn-sm" (click)="fetchDiscounts(currentPage, searchQuery)">
+              [(ngModel)]="discountQuery">
+            <button type="button" class="btn btn-danger btn-sm" (click)="fetchDiscounts(currentPage, discountQuery)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                 viewBox="0 0 16 16">
                 <path
