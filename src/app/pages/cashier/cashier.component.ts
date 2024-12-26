@@ -114,8 +114,8 @@ export class CashierComponent {
           tradingResponse.forEach((item: TradingItem) => {
             this.filterList.push({
               id: item._id,
-              category: item.category,
-              name: item.brand,
+              category: item.brand,
+              name: item.size,
               sellingPrice: item.sellingPrice
             });
           });
