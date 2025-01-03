@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../pages/auth/auth.service';
 import { Access, User } from '../../../shared/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -20,19 +21,28 @@ export class HeaderComponent {
     { title: 'Billing & Client', link: 'management/billing-client' },
     { title: 'User Management', link: 'management/users' },
     { title: 'Cashier', link: 'pos/cashier' },
-    { title: 'Logout', link: '/' },
   ];
 
   filteredMenuItems: { title: string; link: string }[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-		this.authService.currentUser$.subscribe((user) => {
-			console.log("currentuser 1", user);
-      this.currentUser = user;
+		// Get initial user state
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.currentUser = currentUser;
       this.filterMenuItemsBasedOnAccess();
-    });
+    } else {
+      // Subscribe to future changes
+      this.authService.currentUser$.subscribe((user) => {
+        this.currentUser = user;
+        this.filterMenuItemsBasedOnAccess();
+      });
+    }
     
     this.currentUrl = window.location.href;
   }
@@ -41,6 +51,7 @@ export class HeaderComponent {
 		console.log("currentuser", this.currentUser);
 
     if (!this.currentUser || !this.currentUser.access) {
+      console.log("no current user");
       this.filteredMenuItems = [];
       return;
     }
@@ -56,8 +67,10 @@ export class HeaderComponent {
 		);
 		
 		console.log("filteredMenuItems", this.filteredMenuItems);
+  }
 
-    // Ensure Logout always appears in the menu
-    this.filteredMenuItems.push({ title: 'Logout', link: '/' });
+  onLogout() {
+    this.authService.logout();
+    this.router.navigateByUrl("/");
   }
 }
