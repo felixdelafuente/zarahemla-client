@@ -31,7 +31,6 @@ export class AuthComponent implements OnInit {
     { title: 'Billing & Client', link: 'management/billing-client' },
     { title: 'User Management', link: 'management/users' },
     { title: 'Cashier', link: 'pos/cashier' },
-    { title: 'Logout', link: '/' },
   ];
 
   constructor(
@@ -112,11 +111,18 @@ export class AuthComponent implements OnInit {
   checkCurrentUser(): void {
     if (this.authService.isAuthenticated()) {
       this.currentUser = this.authService.getCurrentUser();
-      console.log('User already logged in:', this.currentUser);
-      this.toastService.show(
-          "User is already logged in.",
-          'success'
+      if (this.currentUser) {
+        const userAccessTitles = new Set(
+          this.currentUser.access.flatMap((access: Access) => [...access.trading, ...access.services])
         );
+    
+        this.filteredMenuItems = this.menuItems.filter((menuItem) =>
+          userAccessTitles.has(`${menuItem.title} Page`)
+        );
+        
+        this.router.navigateByUrl(this.filteredMenuItems[0].link);
+        this.toastService.show('User is already logged in.', 'success');
+      }
     }
   }
 }
