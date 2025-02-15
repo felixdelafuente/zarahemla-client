@@ -2,12 +2,16 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="manageClientModalLabel">{{ item ? 'Edit Service' : 'Add Service' }}</h5>
+        <h5 class="modal-title" id="manageClientModalLabel">{{ item ? 'Edit Client' : 'Add Client' }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
         <form [formGroup]="manageClientForm" (ngSubmit)="onSubmit()">
           <div class="row">
+            <div class="col-lg-6 mb-3">
+              <label for="company" class="form-label">Company</label>
+              <input type="text" class="form-control" id="company" formControlName="company" required>
+            </div>
             <div class="col-lg-6 mb-3">
               <label for="name" class="form-label">Name</label>
               <input type="text" class="form-control" id="name" formControlName="name" required>

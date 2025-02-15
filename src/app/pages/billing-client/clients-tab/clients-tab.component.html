@@ -24,6 +24,7 @@
           <tr>
             <th scope="col" class="text-nowrap">&nbsp;</th>
             <th scope="col" class="text-nowrap">#</th>
+            <th scope="col" class="text-nowrap">Company</th>
             <th scope="col" class="text-nowrap">Name</th>
             <th scope="col" class="text-nowrap">Email</th>
             <th scope="col" class="text-nowrap">Contact</th>
@@ -38,6 +39,7 @@
                 (change)="onRowCheckboxChange($event, item._id)" />
             </td>
             <th scope="row">{{ (currentPage - 1) * pageSize + i + 1 }}</th>
+            <td>{{ item.company }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.contact }}</td>

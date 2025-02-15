@@ -28,6 +28,7 @@ export class ManageClientModalComponent {
   ) {
     // Initialize form group with basic fields
     this.manageClientForm = this.fb.group({
+      company: ['', [Validators.required]],
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
       contact: ['', [Validators.required]],
@@ -38,6 +39,7 @@ export class ManageClientModalComponent {
   ngOnChanges() {
     if (this.item) {
       this.manageClientForm.patchValue({
+        company: this.item.company,
         name: this.item.name,
         email: this.item.email,
         contact: this.item.contact,
@@ -49,6 +51,7 @@ export class ManageClientModalComponent {
   onSubmit() {  
       if (this.item) {
         const newService: Partial<any> = {
+        company: this.manageClientForm.value.company ,
         name: this.manageClientForm.value.name ,
         email: this.manageClientForm.value.email ,
         contact: this.manageClientForm.value.contact ,
@@ -71,10 +74,11 @@ export class ManageClientModalComponent {
       });
       } else {
         const newService: NewClient = {
-      name: this.manageClientForm.value.name ,
-      email: this.manageClientForm.value.email ,
-      contact: this.manageClientForm.value.contact ,
-      dateIssued: this.manageClientForm.value.dateIssued ,
+          company: this.manageClientForm.value.company ,
+          name: this.manageClientForm.value.name ,
+          email: this.manageClientForm.value.email ,
+          contact: this.manageClientForm.value.contact ,
+          dateIssued: this.manageClientForm.value.dateIssued ,
         };
         
       this.service.add(newService).subscribe({
